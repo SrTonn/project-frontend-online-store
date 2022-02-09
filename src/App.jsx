@@ -20,7 +20,7 @@ export default class App extends React.Component {
           render={ () => (
             <Home
               { ...this.state }
-              handleChange={ this.handleChange }
+              onChange={ this.handleChange }
             />) }
         />
       </Switch>
