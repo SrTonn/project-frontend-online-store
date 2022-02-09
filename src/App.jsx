@@ -8,8 +8,10 @@ export default class App extends React.Component {
     inputSearch: '',
   }
 
-  handleChange = () => {
-    console.log('ativei');
+  handleChange = ({ target: { name, value } }) => {
+    this.setState(() => ({
+      [name]: value,
+    }));
   }
 
   render() {
