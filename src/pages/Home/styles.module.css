@@ -1,3 +1,13 @@
 .TagP {
   text-align: center;
 }
+
+.ContainerCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.SearchInput {
+  border-radius: 10px;
+}
