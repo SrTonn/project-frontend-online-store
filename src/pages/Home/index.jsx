@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../../components/Input';
 import styles from './styles.module.css';
 
@@ -16,6 +17,12 @@ export default class Home extends Component {
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <Link
+          to="/cart"
+          data-testid="shopping-cart-button"
+        >
+          <span>🛒 Carrinho de Compras</span>
+        </Link>
       </>
     );
   }

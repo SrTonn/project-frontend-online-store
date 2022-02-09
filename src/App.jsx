@@ -20,6 +20,7 @@ export default class App extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route
+            exact
             path="/"
             render={ () => (
               <Home
@@ -28,7 +29,7 @@ export default class App extends React.Component {
               />
             ) }
           />
-          <Route path="*" component={ Cart } />
+          <Route path="/cart" component={ Cart } />
         </Switch>
       </BrowserRouter>
     );
