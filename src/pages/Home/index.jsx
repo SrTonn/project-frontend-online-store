@@ -7,12 +7,12 @@ export default class Home extends Component {
     return (
       <>
         <Input
-          data-testid="home-initial-message"
           name="inputSearch"
           { ...this.props }
         />
         <p
           className={ styles.TagP }
+          data-testid="home-initial-message"
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
