@@ -10,17 +10,19 @@ export default class Input extends Component {
       placeholder,
       value,
       onChange,
+      dataTestId,
     } = this.props;
 
     return (
       <div>
         <input
-          name={name}
-          id={id}
-          placeholder={placeholder}
-          type={type}
-          value={value}
-          onChange={onChange}
+          name={ name }
+          dataTestId={ dataTestId }
+          id={ id }
+          placeholder={ placeholder }
+          type={ type }
+          value={ value }
+          onChange={ onChange }
         />
       </div>
     );
@@ -30,8 +32,9 @@ export default class Input extends Component {
 Input.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.string.isRequired,
-}
+};
