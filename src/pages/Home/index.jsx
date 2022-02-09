@@ -49,7 +49,7 @@ export default class Home extends Component {
 
         <main className={ styles.ContainerCards }>
           {productList && productList.length > 0
-            ? (
+            && (
               productList.map(({ id, price, title, thumbnail }) => (
                 <Card
                   key={ id }
@@ -58,7 +58,8 @@ export default class Home extends Component {
                   cardPrice={ `R$${price}` }
                   cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
                 />
-              ))) : <p>Nenhum produto foi encontrado</p>}
+              )))}
+          {hasSearched && <p>Nenhum produto foi encontrado</p>}
 
         </main>
       </>
