@@ -6,7 +6,11 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <Input />
+        <Input
+          data-testid="home-initial-message"
+          name="inputSearch"
+          { ...this.props }
+        />
         <p
           className={ styles.TagP }
         >
