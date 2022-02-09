@@ -3,12 +3,27 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 
-function App() {
-  return (
-    <Switch>
-      <Route path="/" component={ Home } />
-    </Switch>
-  );
-}
+export default class App extends React.Component {
+  state = {
+    inputSearch: '',
+  }
 
-export default App;
+  handleChange = () => {
+    console.log('ativei');
+  }
+
+  render() {
+    return (
+      <Switch>
+        <Route
+          path="/"
+          render={ () => (
+            <Home
+              { ...this.state }
+              handleChange={ this.handleChange }
+            />) }
+        />
+      </Switch>
+    );
+  }
+}
