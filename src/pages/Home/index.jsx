@@ -5,10 +5,19 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 import styles from './styles.module.css';
+import Categories from '../../components/Categories';
+import { getCategories } from '../../services/api';
 
 export default class Home extends Component {
   state = {
+    categories: [],
     hasSearched: false,
+  }
+
+   async componentDidMount() {
+    const list = await getCategories();
+
+    this.setState({ categories: list });
   }
 
   handleClick = async () => {
@@ -20,7 +29,7 @@ export default class Home extends Component {
 
   render() {
     const { inputSearch, productList } = this.props;
-    const { hasSearched } = this.state;
+    const { hasSearched, categories } = this.state;
     return (
       <>       
         <div>
@@ -55,7 +64,7 @@ export default class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         )}
-
+        <Categories categories={ categories } />
         <main className={ styles.ContainerCards }>
           {productList && productList.length > 0
             && (
@@ -69,7 +78,6 @@ export default class Home extends Component {
                 />
               )))}
           {hasSearched && <p>Nenhum produto foi encontrado</p>}
-
         </main>
       </>
     );
