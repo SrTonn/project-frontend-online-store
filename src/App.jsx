@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
+import Home from './pages/Home/Home';
+import Cart from './pages/Cart/Cart';
 
 export default class App extends React.Component {
   state = {
