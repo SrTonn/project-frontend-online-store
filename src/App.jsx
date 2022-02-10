@@ -7,11 +7,18 @@ import Cart from './pages/Cart';
 export default class App extends React.Component {
   state = {
     inputSearch: '',
+    productList: [],
   }
 
   handleChange = ({ target: { name, value } }) => {
     this.setState(() => ({
       [name]: value,
+    }));
+  }
+
+  updateState = (key, value) => {
+    this.setState(() => ({
+      [key]: value,
     }));
   }
 
@@ -26,6 +33,7 @@ export default class App extends React.Component {
               <Home
                 { ...this.state }
                 onChange={ this.handleChange }
+                updateState={ this.updateState }
               />
             ) }
           />

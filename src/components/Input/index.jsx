@@ -6,7 +6,7 @@ export default class Input extends Component {
     const {
       type,
       name,
-      id,
+      className,
       placeholder,
       value,
       onChange,
@@ -17,8 +17,8 @@ export default class Input extends Component {
       <div>
         <input
           name={ name }
-          dataTestId={ dataTestId }
-          id={ id }
+          data-testid={ dataTestId }
+          className={ className }
           placeholder={ placeholder }
           type={ type }
           value={ value }
@@ -28,13 +28,18 @@ export default class Input extends Component {
     );
   }
 }
+Input.defaultProps = {
+  type: 'text',
+  placeholder: '',
+  className: '',
+};
 
 Input.propTypes = {
-  type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
 };
