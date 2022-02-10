@@ -1,3 +1,5 @@
-.NavMenu label {
-  background-color: brown;
+.CategoryContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 30%;
 }
