@@ -11,7 +11,6 @@
   width: 350px;
 }
 
-
 .CardTitleContainer {
   align-items: center;
   background-color: rgb(237, 237, 237);
@@ -25,9 +24,10 @@
 }
 
 .CardTitle {
-  display: -webkit-box;
+
+  /*  display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; */
   overflow: hidden;
   text-overflow: ellipsis;
 }
