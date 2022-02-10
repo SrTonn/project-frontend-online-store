@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
+import ProductsDetails from './pages/ProductsDetails/ProductsDetails';
 
 export default class App extends React.Component {
   state = {
@@ -38,6 +39,7 @@ export default class App extends React.Component {
             ) }
           />
           <Route path="/cart" component={ Cart } />
+          <Route path="/productDetails/:productId" component={ ProductsDetails } />
         </Switch>
       </BrowserRouter>
     );

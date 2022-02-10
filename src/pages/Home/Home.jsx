@@ -11,6 +11,7 @@ export default class Home extends Component {
   state = {
     categories: [],
     hasSearched: false,
+    product: {},
   }
 
   async componentDidMount() {
@@ -24,6 +25,9 @@ export default class Home extends Component {
     const { results } = await getProductsFromCategoryAndQuery(null, inputSearch) || [];
     updateState('productList', results);
     this.setState(() => ({ hasSearched: true }));
+  }
+
+  handleClickDetails = (event) => {
   }
 
   render() {
@@ -63,19 +67,34 @@ export default class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         )}
+
         <Categories categories={ categories } />
+
         <main className={ styles.ContainerCards }>
           {productList && productList.length > 0
             && (
-              productList.map(({ id, price, title, thumbnail }) => (
-                <Card
-                  key={ id }
-                  dataTestId="product"
-                  cardName={ title }
-                  cardPrice={ `R$${price}` }
-                  cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                />
-              )))}
+              productList.map((item) => {
+                const { id, price, title, thumbnail } = item;
+                return (
+                  <Link
+                    key={ id }
+                    to={ {
+                      pathname: `/productDetails/${id}`,
+                      state: { item },
+                    } }
+                    data-testid="product-detail-link"
+                  >
+                    <Card
+                      dataTestId="product"
+                      cardName={ title }
+                      cardPrice={ `R$${price}` }
+                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                      onClick={ (event) => this.handleClickDetails(event) }
+                    />
+                  </Link>
+                );
+              }))}
+
           {hasSearched && <p>Nenhum produto foi encontrado</p>}
         </main>
       </>
