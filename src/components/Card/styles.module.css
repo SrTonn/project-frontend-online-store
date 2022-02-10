@@ -5,18 +5,43 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 440px;
+  justify-content: space-between;
   margin-bottom: 18px;
-  width: 250px;
+  width: 350px;
 }
 
-.CardImg {
-  width: 230px;
+
+.CardTitleContainer {
+  align-items: center;
+  background-color: rgb(237, 237, 237);
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex: 1 1;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  width: 100%;
 }
 
 .CardTitle {
-  background-color: rgb(237, 237, 237);
-  border-radius: 20px 20px 0 0;
-  font-size: 15px;
-  padding: 12px;
+  height: auto;
+  overflow: hidden;
+  padding: 6px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.CardImg {
+  aspect-ratio: 1 / 1;
+  flex: 4 0;
+  height: 230px;
+  margin: 2em;
+}
+
+.Price {
+  align-items: flex-end;
+  display: flex;
+  flex: 1;
 }
