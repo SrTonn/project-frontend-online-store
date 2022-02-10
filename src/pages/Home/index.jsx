@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -21,7 +22,7 @@ export default class Home extends Component {
     const { inputSearch, productList } = this.props;
     const { hasSearched } = this.state;
     return (
-      <>
+      <>       
         <div>
           <Input
             name="inputSearch"
@@ -37,6 +38,14 @@ export default class Home extends Component {
           >
             Buscar
           </button>
+          
+          <Link
+            to="/cart"
+            data-testid="shopping-cart-button"
+          >
+            <span>🛒 Carrinho de Compras</span>
+          </Link>
+
         </div>
         {!hasSearched && (
           <p
