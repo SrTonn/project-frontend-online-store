@@ -11,7 +11,6 @@ export default class Home extends Component {
   state = {
     categories: [],
     hasSearched: false,
-    product: {},
   }
 
   async componentDidMount() {
@@ -25,9 +24,6 @@ export default class Home extends Component {
     const { results } = await getProductsFromCategoryAndQuery(null, inputSearch) || [];
     updateState('productList', results);
     this.setState(() => ({ hasSearched: true }));
-  }
-
-  handleClickDetails = (event) => {
   }
 
   render() {
