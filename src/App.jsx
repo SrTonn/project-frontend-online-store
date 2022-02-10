@@ -7,6 +7,7 @@ import Cart from './pages/Cart';
 export default class App extends React.Component {
   state = {
     inputSearch: '',
+    productList: [],
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -15,20 +16,28 @@ export default class App extends React.Component {
     }));
   }
 
+  updateState = (key, value) => {
+    this.setState(() => ({
+      [key]: value,
+    }));
+  }
+
   render() {
     return (
       <BrowserRouter>
         <Switch>
           <Route
+            exact
             path="/"
             render={ () => (
               <Home
                 { ...this.state }
                 onChange={ this.handleChange }
+                updateState={ this.updateState }
               />
             ) }
           />
-          <Route path="*" component={ Cart } />
+          <Route path="/cart" component={ Cart } />
         </Switch>
       </BrowserRouter>
     );
