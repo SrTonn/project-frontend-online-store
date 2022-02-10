@@ -1,3 +1,3 @@
-.NavMenu {
-    display: flex;
+.NavMenu label{
+ background-color: brown;
 }

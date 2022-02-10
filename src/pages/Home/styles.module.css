@@ -13,12 +13,25 @@
 }
 
 .MenuAndCards {
-display: flex
+  display: flex;
 }
 .MenuAndCards nav {
-width: 20vw;
+  background-color: rgb(237, 237, 237);
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+}
+
+.MenuAndCards nav label {
+  padding-bottom: 10px;
+  padding-left: 50px;
+}
+
+.MenuAndCards nav h1 {
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 .MenuAndCards main {
-width: 80vw;
+  width: 80vw;
 }
