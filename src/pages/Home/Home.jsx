@@ -77,7 +77,8 @@ export default class Home extends Component {
                     cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
                   />
                 )))}
-            {hasSearched && <p>Nenhum produto foi encontrado</p>}
+            {hasSearched && productList
+            && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>
         </div>
       </>
