@@ -63,21 +63,23 @@ export default class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         )}
-        <Categories categories={ categories } />
-        <main className={ styles.ContainerCards }>
-          {productList && productList.length > 0
-            && (
-              productList.map(({ id, price, title, thumbnail }) => (
-                <Card
-                  key={ id }
-                  dataTestId="product"
-                  cardName={ title }
-                  cardPrice={ `R$${price}` }
-                  cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                />
-              )))}
-          {hasSearched && <p>Nenhum produto foi encontrado</p>}
-        </main>
+        <div className={ styles.MenuAndCards }>
+          <Categories categories={ categories } />
+          <main className={ styles.ContainerCards }>
+            {productList && productList.length > 0
+              && (
+                productList.map(({ id, price, title, thumbnail }) => (
+                  <Card
+                    key={ id }
+                    dataTestId="product"
+                    cardName={ title }
+                    cardPrice={ `R$${price}` }
+                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                  />
+                )))}
+            {hasSearched && <p>Nenhum produto foi encontrado</p>}
+          </main>
+        </div>
       </>
     );
   }

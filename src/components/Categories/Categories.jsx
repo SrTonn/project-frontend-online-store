@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styles from './styles.module.css';
 
 export default class Categories extends Component {
   render() {
@@ -8,7 +9,7 @@ export default class Categories extends Component {
     } = this.props;
 
     return (
-      <nav>
+      <nav calassName={ styles.NavMenu }>
         <h1>Categorias:</h1>
         {categories
           .map((item) => (

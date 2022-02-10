@@ -11,3 +11,14 @@
 .SearchInput {
   border-radius: 10px;
 }
+
+.MenuAndCards {
+display: flex
+}
+.MenuAndCards nav {
+width: 20vw;
+}
+
+.MenuAndCards main {
+width: 80vw;
+}
