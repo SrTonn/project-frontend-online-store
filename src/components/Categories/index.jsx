@@ -8,9 +8,8 @@ export default class Categories extends Component {
     } = this.props;
 
     return (
-      <>
+      <nav>
         <h1>Categorias:</h1>
-
         {categories
           .map((item) => (
             <label key={ item.id } data-testid="category" htmlFor={ item.id }>
@@ -18,7 +17,7 @@ export default class Categories extends Component {
               { item.name }
             </label>
           ))}
-      </>
+      </nav>
     );
   }
 }
