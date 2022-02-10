@@ -12,9 +12,11 @@ export default class Card extends Component {
     } = this.props;
     return (
       <div data-testid={ dataTestId } className={ styles.CardContainer }>
-        <span className={ styles.CardTitle }>{cardName}</span>
+        <div className={ styles.CardTitleContainer }>
+          <span className={ styles.CardTitle }>{cardName}</span>
+        </div>
         <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
-        <p>{cardPrice}</p>
+        <p className={ styles.Price }>{cardPrice}</p>
       </div>
     );
   }
