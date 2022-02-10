@@ -15,6 +15,7 @@
 .MenuAndCards {
   display: flex;
 }
+
 .MenuAndCards nav {
   background-color: rgb(237, 237, 237);
   display: flex;
