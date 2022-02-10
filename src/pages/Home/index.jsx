@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
-import { getProductsFromCategoryAndQuery } from '../../services/api';
+import { getProductsFromCategoryAndQuery, getCategories } from '../../services/api';
 import styles from './styles.module.css';
 import Categories from '../../components/Categories';
-import { getCategories } from '../../services/api';
 
 export default class Home extends Component {
   state = {
@@ -14,7 +13,7 @@ export default class Home extends Component {
     hasSearched: false,
   }
 
-   async componentDidMount() {
+  async componentDidMount() {
     const list = await getCategories();
 
     this.setState({ categories: list });
@@ -31,7 +30,7 @@ export default class Home extends Component {
     const { inputSearch, productList } = this.props;
     const { hasSearched, categories } = this.state;
     return (
-      <>       
+      <>
         <div>
           <Input
             name="inputSearch"
@@ -47,7 +46,7 @@ export default class Home extends Component {
           >
             Buscar
           </button>
-          
+
           <Link
             to="/cart"
             data-testid="shopping-cart-button"
