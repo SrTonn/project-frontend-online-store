@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductDetails } from '../../services/api';
 
@@ -12,43 +13,56 @@ export default class ProductsDetails extends Component {
 
     const product = await getProductDetails(productId);
 
-    this.setState({ product });
-    console.log(product);
+    this.setState({
+      product: {
+        title: product.title,
+        price: product.price,
+        thumbnail: product.thumbnail.replace('I.jpg', 'W.webp'),
+        attributes: product.attributes,
+      },
+    });
   }
 
   render() {
     const {
-      product,
+      product: { title, price, thumbnail, attributes },
     } = this.state;
-    // console.log(this.props);
 
-    const attrList = product.attributes.map((item) => (
+    const attrList = attributes?.map((item) => (
       <li key={ item.id }>
         {item.name}
         {': '}
         {item.value_name}
-      </li>));
+      </li>
+    ));
 
     return (
-      <div>
-        <h2>
-          {product.title}
-          {' '}
-          {product.price}
-        </h2>
+      <>
+        <Link
+          to="/cart"
+          data-testid="shopping-cart-button"
+        >
+          <span>🛒 Carrinho de Compras</span>
+        </Link>
 
         <div>
-          <img src={ product.pictures[0].url } alt={ product.title } />
+          <h2>
+            {title}
+            {' '}
+            {`R$${price}`}
+          </h2>
 
           <div>
-            <ul>
-              {attrList}
-            </ul>
+            <img src={ thumbnail } alt={ title } />
 
+            <div>
+              <ul>
+                {attrList}
+              </ul>
+            </div>
           </div>
         </div>
-
-      </div>
+      </>
     );
   }
 }
