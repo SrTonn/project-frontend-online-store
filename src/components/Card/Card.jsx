@@ -3,6 +3,26 @@ import React, { Component } from 'react';
 import styles from './styles.module.css';
 
 export default class Card extends Component {
+  state = {
+    cartProductList: [],
+  }
+
+  handleAddToCartClick = () => {
+    const { updateState, id, cardName, cardImage, cardPrice } = this.props;
+    const { cartProductList } = this.state;
+    const productInfos = {
+      id,
+      title: cardName,
+      imageUrl: cardImage,
+      price: cardPrice,
+    };
+    this.setState((prevState) => ({
+      cartProductList: [...prevState.cartProductList, productInfos],
+    }));
+    updateState('cartProductList', [...cartProductList, productInfos]);
+    console.log(productInfos);
+  }
+
   render() {
     const {
       cardName,
@@ -30,6 +50,7 @@ export default class Card extends Component {
           className={ styles.Button }
           type="submit"
           data-testid="product-add-to-cart"
+          onClick={ this.handleAddToCartClick }
         >
           <span role="img" aria-label="add-cart"> Adicionar ao Carrinho 🛒</span>
         </button>
@@ -44,4 +65,5 @@ Card.propTypes = {
   cardPrice: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
+  updateState: PropTypes.func.isRequired,
 };
