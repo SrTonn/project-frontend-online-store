@@ -3,24 +3,23 @@ import React, { Component } from 'react';
 import styles from './styles.module.css';
 
 export default class Card extends Component {
-  state = {
-    cartProductList: [],
-  }
-
   handleAddToCartClick = () => {
-    const { updateState, id, cardName, cardImage, cardPrice } = this.props;
-    const { cartProductList } = this.state;
+    const {
+      updateState,
+      id,
+      cardName,
+      cardImage,
+      cardPrice,
+      cartProductList,
+    } = this.props;
     const productInfos = {
       id,
       title: cardName,
       imageUrl: cardImage,
       price: cardPrice,
     };
-    this.setState((prevState) => ({
-      cartProductList: [...prevState.cartProductList, productInfos],
-    }));
+
     updateState('cartProductList', [...cartProductList, productInfos]);
-    console.log(productInfos);
   }
 
   render() {
@@ -61,9 +60,11 @@ export default class Card extends Component {
 }
 
 Card.propTypes = {
+  id: PropTypes.string.isRequired,
   cardName: PropTypes.string.isRequired,
   cardPrice: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
+  cartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
