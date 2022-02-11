@@ -74,7 +74,10 @@ export default class Home extends Component {
         )}
 
         <div className={ styles.MenuAndCards }>
-          <Categories categories={ categories } />
+          <Categories
+            categories={ categories }
+            onInputClick={ this.handleCategoryClick }
+          />
           <main className={ styles.ContainerCards }>
             {productList && productList.length > 0
               && (
