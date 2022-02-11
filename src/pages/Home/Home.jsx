@@ -27,7 +27,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { inputSearch, productList } = this.props;
+    const { inputSearch, productList, updateState } = this.props;
     const { hasSearched, categories } = this.state;
     return (
       <>
@@ -75,6 +75,8 @@ export default class Home extends Component {
                     cardName={ title }
                     cardPrice={ `R$${price}` }
                     cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                    id={ id }
+                    updateState={ updateState }
                   />
                 )))}
             {hasSearched && productList
