@@ -23,10 +23,16 @@ export default class Card extends Component {
             } }
           >
             {cardName}
-
           </span>
         </div>
         <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
+        <button
+          className={ styles.Button }
+          type="submit"
+          data-testid="product-add-to-cart"
+        >
+          <span role="img" aria-label="add-cart"> Adicionar ao Carrinho 🛒</span>
+        </button>
         <p className={ styles.Price }>{cardPrice}</p>
       </div>
     );

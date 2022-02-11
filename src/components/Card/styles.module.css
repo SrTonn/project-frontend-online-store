@@ -44,3 +44,34 @@
   display: flex;
   flex: 1;
 }
+
+.Button {
+  border: none;
+  border-radius: 30em;
+  box-shadow: 6px 6px 12px #c5c5c5 , -6px -6px 12px white;
+  font-family: inherit;
+  font-size: 15px;
+  height: 3em;
+  overflow: hidden;
+  position: relative;
+  width: 13em;
+  z-index: 1;
+}
+
+.Button:before {
+  background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+  border-radius: 30em;
+  content: '';
+  display: block;
+  height: 3em;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: 0.5s ease;
+  width: 0;
+  z-index: -1;
+}
+
+.Button:hover:before {
+  width: 13em;
+}
