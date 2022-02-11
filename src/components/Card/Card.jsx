@@ -16,6 +16,7 @@ export default class Card extends Component {
           <span className={ styles.CardTitle }>{cardName}</span>
         </div>
         <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
+        <button type="submit"> Adicionar ao carrinho 🛒</button>
         <p className={ styles.Price }>{cardPrice}</p>
       </div>
     );
