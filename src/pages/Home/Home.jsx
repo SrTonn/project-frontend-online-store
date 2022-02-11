@@ -6,11 +6,14 @@ import Input from '../../components/Input/Input';
 import { getProductsFromCategoryAndQuery, getCategories } from '../../services/api';
 import styles from './styles.module.css';
 import Categories from '../../components/Categories/Categories';
+import CategoryProducts from '../../components/CategoryProducts/CategoryProducts';
 
 export default class Home extends Component {
   state = {
     categories: [],
     hasSearched: false,
+    categoryClicked: false,
+    categoryId: '',
   }
 
   async componentDidMount() {
@@ -26,9 +29,14 @@ export default class Home extends Component {
     this.setState(() => ({ hasSearched: true }));
   }
 
+  handleCategoryClick = async ({ target }) => {
+    const categoryId = target.id;
+    this.setState({ categoryClicked: true, categoryId });
+  }
+
   render() {
     const { inputSearch, productList } = this.props;
-    const { hasSearched, categories } = this.state;
+    const { hasSearched, categories, categoryClicked, categoryId } = this.state;
     return (
       <>
         <div className={ styles.SearchDiv }>

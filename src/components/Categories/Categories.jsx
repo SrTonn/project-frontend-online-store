@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
@@ -7,6 +6,7 @@ export default class Categories extends Component {
   render() {
     const {
       categories,
+      onInputClick,
     } = this.props;
 
     return (
@@ -14,12 +14,16 @@ export default class Categories extends Component {
         <h1>Categorias:</h1>
         {categories
           .map((item) => (
-            <Link key={ item.id } to={ `/product/${item.id}` }>
-              <label data-testid="category" htmlFor={ item.id }>
-                <input type="radio" id={ item.id } name="category" value={ item.id } />
-                { item.name }
-              </label>
-            </Link>
+            <label key={ item.id } data-testid="category" htmlFor={ item.id }>
+              <input
+                type="radio"
+                id={ item.id }
+                onClick={ onInputClick }
+                name="category"
+                value={ item.id }
+              />
+              { item.name }
+            </label>
           ))}
       </nav>
     );
@@ -31,4 +35,9 @@ Categories.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
+  onInputClick: PropTypes.func,
+};
+
+Categories.defaultProps = {
+  onInputClick: () => '',
 };
