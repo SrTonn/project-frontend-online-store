@@ -28,11 +28,11 @@ export default class App extends React.Component {
     this.setState(({ cartProductList }) => {
       let i;
       const productList = JSON.parse(JSON.stringify(cartProductList));
-      productList.forEach((product, index) => { if (product.id === +id) i = index; });
+      productList.forEach((product, index) => { if (product.id === id) i = index; });
       if (name === 'less' || name === 'remove') {
         if (name === 'remove' || productList[i].quantity === 1) {
           return {
-            cartProductList: cartProductList.filter((item) => item.id !== +id),
+            cartProductList: cartProductList.filter((item) => item.id !== id),
           };
         }
         productList[i].quantity -= 1;
