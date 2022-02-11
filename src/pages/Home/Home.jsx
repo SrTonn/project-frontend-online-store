@@ -51,7 +51,7 @@ export default class Home extends Component {
             to="/cart"
             data-testid="shopping-cart-button"
           >
-            <span>🛒 Carrinho de Compras</span>
+            <span role="img" aria-label="shopping-cart">🛒 Carrinho de Compras</span>
           </Link>
 
         </div>
@@ -88,7 +88,7 @@ export default class Home extends Component {
               }))}
 
           {hasSearched && <p>Nenhum produto foi encontrado</p>}
-        </main>
+        </main>    
       </>
     );
   }
