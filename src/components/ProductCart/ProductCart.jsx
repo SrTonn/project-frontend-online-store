@@ -24,7 +24,13 @@ export default class ProductCart extends Component {
             '-webkit-box-orient': 'vertical',
           } }
         >
-          <abbr title={ title }>{title}</abbr>
+          <abbr
+            title={ title }
+            data-testid="shopping-cart-product-name"
+          >
+            {title}
+
+          </abbr>
         </div>
         <span>-</span>
         <button
@@ -36,7 +42,7 @@ export default class ProductCart extends Component {
         >
           Remover
         </button>
-        <span>{quantity}</span>
+        <span data-testid="shopping-cart-product-quantity">{quantity}</span>
         <button
           type="button"
           id={ id }
