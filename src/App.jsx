@@ -9,6 +9,7 @@ export default class App extends React.Component {
   state = {
     inputSearch: '',
     productList: [],
+    cartProductList: [],
   }
 
   handleChange = ({ target: { name, value } }) => {
