@@ -1,5 +1,19 @@
 .CategoryContainer {
+  background-color: rgb(237, 237, 237);
+  border-radius: 0 15px 15px 0;
   display: flex;
   flex-direction: column;
-  flex-grow: 30%;
+  height: 800px;
+  padding-bottom: 30px;
+  width: 20vw;
+}
+
+.CategoryContainer h1 {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.CategoryContainer nav label {
+  padding-bottom: 10px;
+  padding-left: 50px;
 }
