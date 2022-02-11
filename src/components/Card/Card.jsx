@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
 
 export default class Card extends Component {
@@ -15,15 +16,22 @@ export default class Card extends Component {
 
     return (
       <div data-testid={ dataTestId } className={ styles.CardContainer }>
-        <Link
-          to={ { pathname: `/productDetails/${id}` } }
-          data-testid="product-detail-link"
-        >
-          <div className={ styles.CardTitleContainer }>
+        <div className={ styles.CardTitleContainer }>
+          <Link
+            to={ { pathname: `/productDetails/${id}` } }
+            data-testid="product-detail-link"
+          >
             <span className={ styles.CardTitle }>{cardName}</span>
-          </div>
-        </Link>
+          </Link>
+        </div>
         <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
+        <button
+          className={ styles.Button }
+          type="submit"
+          data-testid="product-add-to-cart"
+        >
+          <span role="img" aria-label="add-cart"> Adicionar ao Carrinho 🛒</span>
+        </button>
         <p className={ styles.Price }>{cardPrice}</p>
       </div>
     );

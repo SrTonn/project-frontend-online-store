@@ -39,7 +39,7 @@ export default class Home extends Component {
     const { hasSearched, categories, categoryClicked, categoryId } = this.state;
     return (
       <>
-        <div>
+        <div className={ styles.SearchDiv }>
           <Input
             name="inputSearch"
             dataTestId="query-input"
@@ -72,29 +72,27 @@ export default class Home extends Component {
           </p>
         )}
 
-        <Categories categories={ categories } onInputClick={ this.handleCategoryClick } />
-
-        <main className={ styles.ContainerCards }>
-          {productList && productList.length > 0
-            && (
-              productList.map((item) => {
-                const { id, price, title, thumbnail } = item;
-                return (
-                  <Card
-                    id={ id }
-                    key={ id }
-                    dataTestId="product"
-                    cardName={ title }
-                    cardPrice={ `R$${price}` }
-                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                  />
-                );
-              }))}
-
-          { categoryClicked && <CategoryProducts categoryId={ categoryId } /> }
-
-          {hasSearched && <p>Nenhum produto foi encontrado</p>}
-        </main>
+        <div className={ styles.MenuAndCards }>
+          <Categories categories={ categories } />
+          <main className={ styles.ContainerCards }>
+            {productList && productList.length > 0
+              && (
+                productList.map((item) => {
+                  const { id, price, title, thumbnail } = item;
+                  return (
+                    <Card
+                      key={ id }
+                      id={ id }
+                      dataTestId="product"
+                      cardName={ title }
+                      cardPrice={ `R$${price}` }
+                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                    />
+                  );
+                }))}
+            {hasSearched && <p>Nenhum produto foi encontrado</p>}
+          </main>
+        </div>
       </>
     );
   }
