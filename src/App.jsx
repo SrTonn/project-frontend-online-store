@@ -23,6 +23,25 @@ export default class App extends React.Component {
     }));
   }
 
+  updateCartItem =({ target: { id, name } }) => {
+    this.setState(({ cartProductList }) => {
+      let i;
+      const productList = JSON.parse(JSON.stringify(cartProductList));
+      productList.forEach((product, index) => { if (product.id === +id) i = index; });
+      if (name === 'less' || name === 'remove') {
+        if (name === 'remove' || productList[i].quantity === 1) {
+          return {
+            cartProductList: cartProductList.filter((item) => item.id !== +id),
+          };
+        }
+        productList[i].quantity -= 1;
+      }
+      if (name === 'add') productList[i].quantity += 1;
+      productList[i].totalPrice = productList[i].price * productList[i].quantity;
+      return { cartProductList: productList };
+    });
+  }
+
   render() {
     return (
       <BrowserRouter>
