@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 import Card from '../Card/Card';
+import styles from './styles.module.css';
 
 class CategoryProducts extends Component {
   state = {
@@ -27,7 +28,7 @@ class CategoryProducts extends Component {
     />
     ));
     return (
-      <div>
+      <div className={ styles.ContainerCards }>
         {productsEl}
       </div>
     );
