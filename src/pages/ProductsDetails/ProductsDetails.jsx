@@ -46,7 +46,7 @@ export default class ProductsDetails extends Component {
         </Link>
 
         <div>
-          <h2>
+          <h2 data-testid="product-detail-name">
             {title}
             {' '}
             {`R$${price}`}
