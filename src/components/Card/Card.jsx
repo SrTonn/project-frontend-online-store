@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
 
 export default class Card extends Component {
@@ -9,14 +10,25 @@ export default class Card extends Component {
       cardPrice,
       cardImage,
       dataTestId,
+      id,
     } = this.props;
     return (
       <div data-testid={ dataTestId } className={ styles.CardContainer }>
         <div className={ styles.CardTitleContainer }>
-          <span className={ styles.CardTitle }>{cardName}</span>
+          <Link
+            to={ { pathname: `/productDetails/${id}` } }
+            data-testid="product-detail-link"
+          >
+            <span className={ styles.CardTitle }>{cardName}</span>
+          </Link>
         </div>
         <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
-        <button type="submit"> Adicionar ao carrinho 🛒</button>
+        <button
+          type="submit"
+          data-testid="product-add-to-cart"
+        >
+          Adicionar ao carrinho 🛒
+        </button>
         <p className={ styles.Price }>{cardPrice}</p>
       </div>
     );
@@ -28,4 +40,5 @@ Card.propTypes = {
   cardPrice: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };

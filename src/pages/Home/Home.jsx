@@ -72,23 +72,19 @@ export default class Home extends Component {
               productList.map((item) => {
                 const { id, price, title, thumbnail } = item;
                 return (
-                  <Link
+                  <Card
                     key={ id }
-                    to={ { pathname: `/productDetails/${id}` } }
-                    data-testid="product-detail-link"
-                  >
-                    <Card
-                      dataTestId="product"
-                      cardName={ title }
-                      cardPrice={ `R$${price}` }
-                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                    />
-                  </Link>
+                    id={ id }
+                    dataTestId="product"
+                    cardName={ title }
+                    cardPrice={ `R$${price}` }
+                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                  />
                 );
               }))}
 
           {hasSearched && <p>Nenhum produto foi encontrado</p>}
-        </main>    
+        </main>
       </>
     );
   }
