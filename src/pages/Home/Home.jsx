@@ -6,11 +6,14 @@ import Input from '../../components/Input/Input';
 import { getProductsFromCategoryAndQuery, getCategories } from '../../services/api';
 import styles from './styles.module.css';
 import Categories from '../../components/Categories/Categories';
+import CategoryProducts from '../../components/CategoryProducts/CategoryProducts';
 
 export default class Home extends Component {
   state = {
     categories: [],
     hasSearched: false,
+    categoryClicked: false,
+    categoryId: '',
   }
 
   async componentDidMount() {
@@ -26,9 +29,14 @@ export default class Home extends Component {
     this.setState(() => ({ hasSearched: true }));
   }
 
+  handleCategoryClick = async ({ target }) => {
+    const categoryId = target.id;
+    this.setState({ categoryClicked: true, categoryId });
+  }
+
   render() {
     const { inputSearch, productList } = this.props;
-    const { hasSearched, categories } = this.state;
+    const { hasSearched, categories, categoryClicked, categoryId } = this.state;
     return (
       <>
         <div>
@@ -64,7 +72,7 @@ export default class Home extends Component {
           </p>
         )}
 
-        <Categories categories={ categories } />
+        <Categories categories={ categories } onInputClick={ this.handleCategoryClick } />
 
         <main className={ styles.ContainerCards }>
           {productList && productList.length > 0
@@ -72,23 +80,21 @@ export default class Home extends Component {
               productList.map((item) => {
                 const { id, price, title, thumbnail } = item;
                 return (
-                  <Link
+                  <Card
+                    id={ id }
                     key={ id }
-                    to={ { pathname: `/productDetails/${id}` } }
-                    data-testid="product-detail-link"
-                  >
-                    <Card
-                      dataTestId="product"
-                      cardName={ title }
-                      cardPrice={ `R$${price}` }
-                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                    />
-                  </Link>
+                    dataTestId="product"
+                    cardName={ title }
+                    cardPrice={ `R$${price}` }
+                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                  />
                 );
               }))}
 
+          { categoryClicked && <CategoryProducts categoryId={ categoryId } /> }
+
           {hasSearched && <p>Nenhum produto foi encontrado</p>}
-        </main>    
+        </main>
       </>
     );
   }
