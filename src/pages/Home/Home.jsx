@@ -77,6 +77,7 @@ export default class Home extends Component {
                     cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
                     id={ id }
                     updateState={ updateState }
+                    { ...this.props }
                   />
                 )))}
             {hasSearched && productList
