@@ -12,6 +12,7 @@ export default class Card extends Component {
       dataTestId,
       id,
     } = this.props;
+
     return (
       <div data-testid={ dataTestId } className={ styles.CardContainer }>
         <div className={ styles.CardTitleContainer }>
@@ -24,10 +25,11 @@ export default class Card extends Component {
         </div>
         <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
         <button
+          className={ styles.Button }
           type="submit"
           data-testid="product-add-to-cart"
         >
-          Adicionar ao carrinho 🛒
+          <span role="img" aria-label="add-cart"> Adicionar ao Carrinho 🛒</span>
         </button>
         <p className={ styles.Price }>{cardPrice}</p>
       </div>
