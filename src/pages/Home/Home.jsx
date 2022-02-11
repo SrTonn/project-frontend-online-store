@@ -53,6 +53,7 @@ export default class Home extends Component {
             onClick={ this.handleClick }
           >
             Buscar
+
           </button>
 
           <Link
