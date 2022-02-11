@@ -26,10 +26,6 @@ export default class Home extends Component {
     this.setState(() => ({ hasSearched: true }));
   }
 
-  openProductsDetails = async ({ target: { id } }) => {
-    await getProductsFromCategoryAndQuery(id, null);
-  }
-
   render() {
     const { inputSearch, productList } = this.props;
     const { hasSearched, categories } = this.state;
@@ -78,10 +74,7 @@ export default class Home extends Component {
                 return (
                   <Link
                     key={ id }
-                    to={ {
-                      pathname: `/productDetails/${id}`,
-                      state: { item },
-                    } }
+                    to={ { pathname: `/productDetails/${id}` } }
                     data-testid="product-detail-link"
                   >
                     <Card
@@ -89,7 +82,6 @@ export default class Home extends Component {
                       cardName={ title }
                       cardPrice={ `R$${price}` }
                       cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                      openProductsDetails={ this.openProductsDetails }
                     />
                   </Link>
                 );
