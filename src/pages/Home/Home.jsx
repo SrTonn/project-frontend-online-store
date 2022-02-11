@@ -91,6 +91,9 @@ export default class Home extends Component {
                     />
                   );
                 }))}
+
+            { categoryClicked && <CategoryProducts categoryId={ categoryId } /> }
+
             {hasSearched && <p>Nenhum produto foi encontrado</p>}
           </main>
         </div>
