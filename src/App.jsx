@@ -9,18 +9,36 @@ export default class App extends React.Component {
   state = {
     inputSearch: '',
     productList: [],
+    cartProductList: [],
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState(() => ({
-      [name]: value,
-    }));
+    this.updateState(name, value);
   }
 
   updateState = (key, value) => {
     this.setState(() => ({
       [key]: value,
     }));
+  }
+
+  updateCartItem = (name, id) => {
+    this.setState(({ cartProductList }) => {
+      let i;
+      const productList = JSON.parse(JSON.stringify(cartProductList));
+      productList.forEach((product, index) => { if (product.id === id) i = index; });
+      if (name === 'less' || name === 'remove') {
+        if (name === 'remove' || productList[i].quantity === 1) {
+          return {
+            cartProductList: cartProductList.filter((item) => item.id !== id),
+          };
+        }
+        productList[i].quantity -= 1;
+      }
+      if (name === 'add') productList[i].quantity += 1;
+      productList[i].totalPrice = productList[i].price * productList[i].quantity;
+      return { cartProductList: productList };
+    });
   }
 
   render() {
@@ -35,11 +53,31 @@ export default class App extends React.Component {
                 { ...this.state }
                 onChange={ this.handleChange }
                 updateState={ this.updateState }
+                updateCartItem={ this.updateCartItem }
               />
             ) }
           />
-          <Route path="/cart" component={ Cart } />
-          <Route path="/productDetails/:productId" component={ ProductsDetails } />
+          <Route
+            path="/cart"
+            render={ (props) => (
+              <Cart
+                { ...props }
+                { ...this.state }
+                updateCartItem={ this.updateCartItem }
+              />
+            ) }
+          />
+          <Route
+            path="/productDetails/:productId"
+            component={ ProductsDetails }
+            render={ () => (
+              <ProductsDetails
+                { ...this.state }
+                updateState={ this.updateState }
+                updateCartItem={ this.updateCartItem }
+              />
+            ) }
+          />
         </Switch>
       </BrowserRouter>
     );

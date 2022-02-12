@@ -35,7 +35,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { inputSearch, productList } = this.props;
+    const { inputSearch, productList, updateState } = this.props;
     const { hasSearched, categories, categoryClicked, categoryId } = this.state;
     return (
       <>
@@ -81,23 +81,26 @@ export default class Home extends Component {
           <main className={ styles.ContainerCards }>
             {productList && productList.length > 0
               && (
-                productList.map((item) => {
-                  const { id, price, title, thumbnail } = item;
-                  return (
-                    <Card
-                      key={ id }
-                      id={ id }
-                      dataTestId="product"
-                      cardName={ title }
-                      cardPrice={ `R$${price}` }
-                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                    />
-                  );
-                }))}
-
-            { categoryClicked && <CategoryProducts categoryId={ categoryId } /> }
-
-            {hasSearched && <p>Nenhum produto foi encontrado</p>}
+                productList.map(({ id, price, title, thumbnail }) => (
+                  <Card
+                    key={ id }
+                    dataTestId="product"
+                    cardName={ title }
+                    cardPrice={ price }
+                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                    id={ id }
+                    updateState={ updateState }
+                    { ...this.props }
+                  />
+                )))}
+            { categoryClicked && (
+              <CategoryProducts
+                categoryId={ categoryId }
+                { ...this.props }
+              />
+            ) }
+            {hasSearched && productList
+            && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>
         </div>
       </>
