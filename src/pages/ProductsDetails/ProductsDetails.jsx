@@ -10,16 +10,16 @@ import styles from './styles.module.css';
 export default class ProductsDetails extends Component {
   state = {
     product: {},
-    quantity: 0,
+    quantity: 1,
   }
 
   async componentDidMount() {
     const { match: { params: { productId } } } = this.props;
 
     const product = await getProductDetails(productId);
-
     this.setState({
       product: {
+        id: productId,
         title: product.title,
         price: product.price,
         thumbnail: product.thumbnail.replace('I.jpg', 'W.webp'),
@@ -29,16 +29,38 @@ export default class ProductsDetails extends Component {
   }
 
   handleClick = () => {
-    const { updateCartItem, match: { params: { productId } } } = this.props;
-    const { quantity } = this.state;
-    updateCartItem('add', productId, quantity);
-    console.log('teste');
+    const { updateCartItem,
+      match: { params: { productId } },
+      cartProductList,
+      updateState,
+    } = this.props;
+    const { quantity, product } = this.state;
+
+    const hasIdInCart = cartProductList
+      .some((productInfo) => productInfo.id === productId);
+
+    if (hasIdInCart) {
+      updateCartItem('add', productId, quantity);
+      return;
+    }
+    const productInfos = {
+      id: productId,
+      title: product.title,
+      imageUrl: product.thumbnail,
+      price: product.price,
+      totalPrice: quantity * product.price,
+      quantity,
+    };
+    updateState('cartProductList', [...cartProductList, productInfos]);
   }
 
   handleClickQuantity = (operator = 'add') => {
-    this.setState((prevState) => ({
-      quantity: operator === 'add' ? prevState.quantity + 1 : prevState.quantity - 1,
-    }));
+    this.setState((prevState) => {
+      if (operator === 'minus') {
+        return { quantity: prevState.quantity <= 1 ? 1 : prevState.quantity - 1 };
+      }
+      return { quantity: prevState.quantity + 1 };
+    });
   }
 
   render() {
@@ -66,8 +88,8 @@ export default class ProductsDetails extends Component {
         <div>
           <h2 data-testid="product-detail-name">
             {title}
-            {' '}
-            {`R$${price}`}
+            {' - '}
+            {price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </h2>
 
           <div>
@@ -80,36 +102,33 @@ export default class ProductsDetails extends Component {
           </div>
         </div>
         <ButtonPlusMinus
-          operator="add"
-          handleClickQuantity={ this.handleClickQuantity }
-        />
-        <span>{ quantity }</span>
-        <ButtonPlusMinus
           operator="minus"
           handleClickQuantity={ this.handleClickQuantity }
         />
-        <Link
-          to="/cart"
-          data-testid="shopping-cart-button"
+        <span>{quantity}</span>
+        <ButtonPlusMinus
+          operator="add"
+          handleClickQuantity={ this.handleClickQuantity }
+        />
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ this.handleClick }
         >
-          <button
-            type="button"
-            data-testid="product-detail-add-to-cart"
-            onClick={ this.handleClick }
-          >
-            Adicionar ao carrinho
-          </button>
-        </Link>
+          Adicionar ao carrinho
+        </button>
       </>
     );
   }
 }
 
 ProductsDetails.propTypes = {
+  cartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       productId: PropTypes.string,
     }),
   }).isRequired,
   updateCartItem: PropTypes.func.isRequired,
+  updateState: PropTypes.func.isRequired,
 };
