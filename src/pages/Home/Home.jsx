@@ -93,7 +93,12 @@ export default class Home extends Component {
                     { ...this.props }
                   />
                 )))}
-            { categoryClicked && <CategoryProducts categoryId={ categoryId } /> }
+            { categoryClicked && (
+              <CategoryProducts
+                categoryId={ categoryId }
+                { ...this.props }
+              />
+            ) }
             {hasSearched && productList
             && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>

@@ -24,6 +24,7 @@ class CategoryProducts extends Component {
       cardName={ prod.title }
       cardPrice={ prod.price }
       cardImage={ prod.thumbnail.replace('I.jpg', 'W.webp') }
+      { ...this.props }
     />
     ));
     return (

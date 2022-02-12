@@ -67,7 +67,17 @@ export default class App extends React.Component {
               />
             ) }
           />
-          <Route path="/productDetails/:productId" component={ ProductsDetails } />
+          <Route
+            path="/productDetails/:productId"
+            component={ ProductsDetails }
+            render={ () => (
+              <ProductsDetails
+                { ...this.state }
+                updateState={ this.updateState }
+                updateCartItem={ this.updateCartItem }
+              />
+            ) }
+          />
         </Switch>
       </BrowserRouter>
     );
