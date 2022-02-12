@@ -11,7 +11,6 @@ export class CartButton extends Component {
           to="/cart"
         >
           <span
-            data-testid="shopping-cart-button"
             role="img"
             aria-label="shopping-cart"
           >
