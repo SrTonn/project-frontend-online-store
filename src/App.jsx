@@ -55,6 +55,7 @@ export default class App extends React.Component {
                 { ...this.state }
                 onChange={ this.handleChange }
                 updateState={ this.updateState }
+                updateCartItem={ this.updateCartItem }
               />
             ) }
           />
