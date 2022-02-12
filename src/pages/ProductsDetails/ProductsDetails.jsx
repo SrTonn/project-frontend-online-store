@@ -28,78 +28,77 @@ export default class ProductsDetails extends Component {
     });
   }
 
-handleClick = () => {
-}
+  handleClick = () => {
+  }
 
-handleClickQuantity = (operator = 'add') => {
-  this.setState((prevState) => ({
-    quantity: operator === 'add' ? prevState.quantity + 1 : prevState.quantity - 1,
-  }));
-}
+  handleClickQuantity = (operator = 'add') => {
+    this.setState((prevState) => ({
+      quantity: operator === 'add' ? prevState.quantity + 1 : prevState.quantity - 1,
+    }));
+  }
 
-render() {
-  console.log(this.props);
-  const {
-    product: { title, price, thumbnail, attributes }, quantity,
-  } = this.state;
+  render() {
+    const {
+      product: { title, price, thumbnail, attributes }, quantity,
+    } = this.state;
 
-  const attrList = attributes?.map((item) => (
-    <li key={ item.id }>
-      {item.name}
-      {': '}
-      {item.value_name}
-    </li>
-  ));
+    const attrList = attributes?.map((item) => (
+      <li key={ item.id }>
+        {item.name}
+        {': '}
+        {item.value_name}
+      </li>
+    ));
 
-  return (
-    <>
-      <Link
-        to="/cart"
-        data-testid="shopping-cart-button"
-      >
-        <CartButton className={ styles.CartButton } />
-      </Link>
-
-      <div>
-        <h2 data-testid="product-detail-name">
-          {title}
-          {' '}
-          {`R$${price}`}
-        </h2>
+    return (
+      <>
+        <Link
+          to="/cart"
+          data-testid="shopping-cart-button"
+        >
+          <CartButton className={ styles.CartButton } />
+        </Link>
 
         <div>
-          <img src={ thumbnail } alt={ title } />
+          <h2 data-testid="product-detail-name">
+            {title}
+            {' '}
+            {`R$${price}`}
+          </h2>
+
           <div>
-            <ul>
-              {attrList}
-            </ul>
+            <img src={ thumbnail } alt={ title } />
+            <div>
+              <ul>
+                {attrList}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <ButtonPlusMinus
-        operator="add"
-        handleClickQuantity={ this.handleClickQuantity }
-      />
-      <span>{ quantity }</span>
-      <ButtonPlusMinus
-        operator="minus"
-        handleClickQuantity={ this.handleClickQuantity }
-      />
-      <Link
-        to="/cart"
-        data-testid="shopping-cart-button"
-      >
-        <button
-          type="button"
-          data-testid="product-detail-add-to-cart"
-          onClick={ this.handleClick }
+        <ButtonPlusMinus
+          operator="add"
+          handleClickQuantity={ this.handleClickQuantity }
+        />
+        <span>{ quantity }</span>
+        <ButtonPlusMinus
+          operator="minus"
+          handleClickQuantity={ this.handleClickQuantity }
+        />
+        <Link
+          to="/cart"
+          data-testid="shopping-cart-button"
         >
-          Adicionar ao carrinho
-        </button>
-      </Link>
-    </>
-  );
-}
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.handleClick }
+          >
+            Adicionar ao carrinho
+          </button>
+        </Link>
+      </>
+    );
+  }
 }
 
 ProductsDetails.propTypes = {
