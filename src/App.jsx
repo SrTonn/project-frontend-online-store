@@ -24,7 +24,7 @@ export default class App extends React.Component {
     }));
   }
 
-  updateCartItem =({ target: { id, name } }) => {
+  updateCartItem = (name, id) => {
     this.setState(({ cartProductList }) => {
       let i;
       const productList = JSON.parse(JSON.stringify(cartProductList));
