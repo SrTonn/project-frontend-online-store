@@ -5,15 +5,13 @@ import Input from '../../components/Input/Input';
 import { getProductsFromCategoryAndQuery, getCategories } from '../../services/api';
 import styles from './styles.module.css';
 import Categories from '../../components/Categories/Categories';
-import CategoryProducts from '../../components/CategoryProducts/CategoryProducts';
+// import CategoryProducts from '../../components/CategoryProducts/CategoryProducts';
 import { CartButton } from '../../components/CartButton/CartButton';
 
 export default class Home extends Component {
   state = {
     categories: [],
     hasSearched: false,
-    categoryClicked: false,
-    categoryId: '',
   }
 
   async componentDidMount() {
@@ -30,13 +28,16 @@ export default class Home extends Component {
   }
 
   handleCategoryClick = async ({ target }) => {
+    const { updateState } = this.props;
+
     const categoryId = target.id;
-    this.setState({ categoryClicked: true, categoryId });
+    const { results: products } = await getProductsFromCategoryAndQuery(categoryId);
+    updateState('productList', products);
   }
 
   render() {
     const { inputSearch, productList, updateState } = this.props;
-    const { hasSearched, categories, categoryClicked, categoryId } = this.state;
+    const { hasSearched, categories } = this.state;
     return (
       <>
         <div className={ styles.Header }>
@@ -89,12 +90,6 @@ export default class Home extends Component {
                     { ...this.props }
                   />
                 )))}
-            { categoryClicked && (
-              <CategoryProducts
-                categoryId={ categoryId }
-                { ...this.props }
-              />
-            ) }
             {hasSearched && productList
             && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>
