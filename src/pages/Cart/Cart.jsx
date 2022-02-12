@@ -13,19 +13,20 @@ export default class Cart extends Component {
         <h2>Carrinho de Compras</h2>
 
         <section className={ styles.CartItemsContainer }>
-          {cartProductList.length === 0 ? <p>Seu carrinho está vazio!!!</p> : (
-            cartProductList.map((product) => (
-              <ProductCart
-                key={ product.id }
-                id={ product.id }
-                imageUrl={ product.imageUrl }
-                title={ product.title }
-                quantity={ product.quantity }
-                price={ product.totalPrice }
-                { ...this.props }
-              />
-            ))
-          )}
+          {cartProductList.length === 0
+            ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p> : (
+              cartProductList.map((product) => (
+                <ProductCart
+                  key={ product.id }
+                  id={ product.id }
+                  imageUrl={ product.imageUrl }
+                  title={ product.title }
+                  quantity={ product.quantity }
+                  price={ product.totalPrice }
+                  { ...this.props }
+                />
+              ))
+            )}
         </section>
 
         <h2>
