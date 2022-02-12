@@ -22,7 +22,9 @@ export default class Categories extends Component {
                 name="category"
                 value={ item.id }
               />
-              { item.name }
+              <span className={ styles.CategoryTitle }>
+                { item.name }
+              </span>
             </label>
           ))}
       </nav>
