@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
-import styles from './styles.module.css';
 
 class Products extends Component {
   state = {

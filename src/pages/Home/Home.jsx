@@ -6,11 +6,14 @@ import Input from '../../components/Input/Input';
 import { getProductsFromCategoryAndQuery, getCategories } from '../../services/api';
 import styles from './styles.module.css';
 import Categories from '../../components/Categories/Categories';
+import CategoryProducts from '../../components/CategoryProducts/CategoryProducts';
 
 export default class Home extends Component {
   state = {
     categories: [],
     hasSearched: false,
+    categoryClicked: false,
+    categoryId: '',
   }
 
   async componentDidMount() {
@@ -26,12 +29,17 @@ export default class Home extends Component {
     this.setState(() => ({ hasSearched: true }));
   }
 
+  handleCategoryClick = async ({ target }) => {
+    const categoryId = target.id;
+    this.setState({ categoryClicked: true, categoryId });
+  }
+
   render() {
     const { inputSearch, productList, updateState } = this.props;
-    const { hasSearched, categories } = this.state;
+    const { hasSearched, categories, categoryClicked, categoryId } = this.state;
     return (
       <>
-        <div>
+        <div className={ styles.SearchDiv }>
           <Input
             name="inputSearch"
             dataTestId="query-input"
@@ -45,6 +53,7 @@ export default class Home extends Component {
             onClick={ this.handleClick }
           >
             Buscar
+
           </button>
 
           <Link
@@ -63,8 +72,12 @@ export default class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         )}
+
         <div className={ styles.MenuAndCards }>
-          <Categories categories={ categories } />
+          <Categories
+            categories={ categories }
+            onInputClick={ this.handleCategoryClick }
+          />
           <main className={ styles.ContainerCards }>
             {productList && productList.length > 0
               && (
@@ -80,6 +93,7 @@ export default class Home extends Component {
                     { ...this.props }
                   />
                 )))}
+            { categoryClicked && <CategoryProducts categoryId={ categoryId } /> }
             {hasSearched && productList
             && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>

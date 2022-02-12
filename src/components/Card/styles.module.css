@@ -23,6 +23,11 @@
   width: 100%;
 }
 
+.CardTitleContainer a {
+  color: black;
+  text-decoration: none;
+}
+
 .CardTitle {
 
   /*  display: -webkit-box;
