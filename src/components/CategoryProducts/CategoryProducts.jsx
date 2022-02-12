@@ -17,13 +17,12 @@ class CategoryProducts extends Component {
 
   render() {
     const { products } = this.state;
-    console.log(products[0]);
     const productsEl = products.map((prod) => (<Card
       id={ prod.id }
       key={ prod.id }
       dataTestId="product"
       cardName={ prod.title }
-      cardPrice={ `R$${prod.price}` }
+      cardPrice={ prod.price }
       cardImage={ prod.thumbnail.replace('I.jpg', 'W.webp') }
     />
     ));

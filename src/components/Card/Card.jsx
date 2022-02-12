@@ -22,7 +22,8 @@ export default class Card extends Component {
       totalPrice: cardPrice,
       quantity: 1,
     };
-    const hasIdInCart = cartProductList.some((product) => product.id === id);
+    const hasIdInCart = cartProductList && cartProductList
+      .some((product) => product.id === id);
 
     if (hasIdInCart) {
       updateCartItem('add', id);
@@ -78,13 +79,19 @@ export default class Card extends Component {
   }
 }
 
+Card.defaultProps = {
+  updateState: () => {},
+  updateCartItem: () => {},
+  cartProductList: [],
+};
+
 Card.propTypes = {
   id: PropTypes.string.isRequired,
   cardName: PropTypes.string.isRequired,
   cardPrice: PropTypes.number.isRequired,
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
-  updateState: PropTypes.func.isRequired,
-  updateCartItem: PropTypes.func.isRequired,
-  cartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateState: PropTypes.func,
+  updateCartItem: PropTypes.func,
+  cartProductList: PropTypes.arrayOf(PropTypes.object),
 };
