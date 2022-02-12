@@ -36,3 +36,17 @@
 .MenuAndCards main {
   width: 80vw;
 }
+
+.SearchDiv {
+  display: flex;
+}
+
+.Header {
+  display: flex;
+}
+
+.CartButton {
+  font-size: 30px;
+  position: absolute;
+  right: 10px;
+};

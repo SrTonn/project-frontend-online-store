@@ -17,6 +17,7 @@ export default class ProductCart extends Component {
         </button>
         <img src={ imageUrl } className={ styles.TagImg } alt={ title } />
         <div
+          data-testid="shopping-cart-product-name"
           style={ {
             display: '-webkit-box',
             overflow: 'hidden',
@@ -26,7 +27,6 @@ export default class ProductCart extends Component {
         >
           <abbr
             title={ title }
-            data-testid="shopping-cart-product-name"
           >
             {title}
 

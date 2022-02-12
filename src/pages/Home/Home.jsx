@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Card from '../../components/Card/Card';
 import Input from '../../components/Input/Input';
@@ -7,6 +6,7 @@ import { getProductsFromCategoryAndQuery, getCategories } from '../../services/a
 import styles from './styles.module.css';
 import Categories from '../../components/Categories/Categories';
 import CategoryProducts from '../../components/CategoryProducts/CategoryProducts';
+import { CartButton } from '../../components/CartButton/CartButton';
 
 export default class Home extends Component {
   state = {
@@ -39,29 +39,25 @@ export default class Home extends Component {
     const { hasSearched, categories, categoryClicked, categoryId } = this.state;
     return (
       <>
-        <div className={ styles.SearchDiv }>
-          <Input
-            name="inputSearch"
-            dataTestId="query-input"
-            value={ inputSearch }
-            className={ styles.SearchInput }
-            { ...this.props }
-          />
-          <button
-            type="submit"
-            data-testid="query-button"
-            onClick={ this.handleClick }
-          >
-            Buscar
+        <div className={ styles.Header }>
+          <div className={ styles.SearchDiv }>
+            <Input
+              name="inputSearch"
+              dataTestId="query-input"
+              value={ inputSearch }
+              className={ styles.SearchInput }
+              { ...this.props }
+            />
+            <button
+              type="submit"
+              data-testid="query-button"
+              onClick={ this.handleClick }
+            >
+              Buscar
+            </button>
+          </div>
 
-          </button>
-
-          <Link
-            to="/cart"
-            data-testid="shopping-cart-button"
-          >
-            <span role="img" aria-label="shopping-cart">🛒 Carrinho de Compras</span>
-          </Link>
+          <CartButton className={ styles.CartButton } />
 
         </div>
         {!hasSearched && (

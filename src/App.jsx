@@ -22,7 +22,7 @@ export default class App extends React.Component {
     }));
   }
 
-  updateCartItem = (name, id) => {
+  updateCartItem = (name, id, quantity = 0) => {
     this.setState(({ cartProductList }) => {
       let i;
       const productList = JSON.parse(JSON.stringify(cartProductList));
@@ -33,9 +33,9 @@ export default class App extends React.Component {
             cartProductList: cartProductList.filter((item) => item.id !== id),
           };
         }
-        productList[i].quantity -= 1;
+        productList[i].quantity -= +quantity || 1;
       }
-      if (name === 'add') productList[i].quantity += 1;
+      if (name === 'add') productList[i].quantity += +quantity || 1;
       productList[i].totalPrice = productList[i].price * productList[i].quantity;
       return { cartProductList: productList };
     });

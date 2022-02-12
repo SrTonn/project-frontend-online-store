@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductDetails } from '../../services/api';
 import ButtonPlusMinus from '../../components/ButtonPlusMinus/ButtonPlusMinus';
+import { CartButton } from '../../components/CartButton/CartButton';
+
+import styles from './styles.module.css';
 
 export default class ProductsDetails extends Component {
   state = {
     product: {},
+    quantity: 0,
   }
 
   async componentDidMount() {
@@ -24,48 +28,78 @@ export default class ProductsDetails extends Component {
     });
   }
 
-  render() {
-    const {
-      product: { title, price, thumbnail, attributes },
-    } = this.state;
+handleClick = () => {
+}
 
-    const attrList = attributes?.map((item) => (
-      <li key={ item.id }>
-        {item.name}
-        {': '}
-        {item.value_name}
-      </li>
-    ));
+handleClickQuantity = (operator = 'add') => {
+  this.setState((prevState) => ({
+    quantity: operator === 'add' ? prevState.quantity + 1 : prevState.quantity - 1,
+  }));
+}
 
-    return (
-      <>
-        <Link
-          to="/cart"
-          data-testid="shopping-cart-button"
-        >
-          <span role="img" aria-label="shopping-cart">🛒 Carrinho de Compras</span>
-        </Link>
+render() {
+  console.log(this.props);
+  const {
+    product: { title, price, thumbnail, attributes }, quantity,
+  } = this.state;
+
+  const attrList = attributes?.map((item) => (
+    <li key={ item.id }>
+      {item.name}
+      {': '}
+      {item.value_name}
+    </li>
+  ));
+
+  return (
+    <>
+      <Link
+        to="/cart"
+        data-testid="shopping-cart-button"
+      >
+        <CartButton className={ styles.CartButton } />
+      </Link>
+
+      <div>
+        <h2 data-testid="product-detail-name">
+          {title}
+          {' '}
+          {`R$${price}`}
+        </h2>
 
         <div>
-          <h2 data-testid="product-detail-name">
-            {title}
-            {' '}
-            {`R$${price}`}
-          </h2>
-
+          <img src={ thumbnail } alt={ title } />
           <div>
-            <img src={ thumbnail } alt={ title } />
-            <div>
-              <ul>
-                {attrList}
-              </ul>
-            </div>
+            <ul>
+              {attrList}
+            </ul>
           </div>
         </div>
-        <ButtonPlusMinus />
-      </>
-    );
-  }
+      </div>
+      <ButtonPlusMinus
+        operator="add"
+        handleClickQuantity={ this.handleClickQuantity }
+      />
+      <span>{ quantity }</span>
+      <ButtonPlusMinus
+        operator="minus"
+        handleClickQuantity={ this.handleClickQuantity }
+      />
+      <Link
+        to="/cart"
+        data-testid="shopping-cart-button"
+      >
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ this.handleClick }
+        >
+          Adicionar ao carrinho
+        </button>
+      </Link>
+    </>
+  );
+}
 }
 
 ProductsDetails.propTypes = {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProductCart from '../../components/ProductCart/ProductCart';
 import styles from './styles.module.css';
+import { CartButton } from '../../components/CartButton/CartButton';
 
 export default class Cart extends Component {
   render() {
@@ -10,6 +11,7 @@ export default class Cart extends Component {
     return (
       <div className={ styles.CartContainer }>
         <button type="button" onClick={ goBack }>go back</button>
+        <CartButton className={ styles.CartButton } />
         <h2>Carrinho de Compras</h2>
 
         <section className={ styles.CartItemsContainer }>

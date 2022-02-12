@@ -7,3 +7,9 @@
   flex-direction: column;
   gap: 12px;
 }
+
+.CartButton {
+  font-size: 30px;
+  position: absolute;
+  left: 10px;
+}
