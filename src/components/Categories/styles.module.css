@@ -8,11 +8,11 @@
   width: 20vw;
 }
 
-.CategoryContainer input {
-  appearance: none;
+.CategoryTitle {
+  cursor: pointer;
 }
 
-.CategoryContainer nav label {
+.CategoryContainer label {
   padding-bottom: 10px;
   padding-left: 40px;
 }
