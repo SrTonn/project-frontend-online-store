@@ -5,9 +5,11 @@ import styles from './styles.module.css';
 
 export default class Cart extends Component {
   render() {
-    const { cartProductList } = this.props;
+    const { cartProductList, history: { goBack } } = this.props;
+
     return (
       <div className={ styles.CartContainer }>
+        <button type="button" onClick={ goBack }>go back</button>
         <h2>Carrinho de Compras</h2>
 
         <section className={ styles.CartItemsContainer }>
@@ -40,4 +42,7 @@ export default class Cart extends Component {
 
 Cart.propTypes = {
   cartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
 };
