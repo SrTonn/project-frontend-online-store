@@ -80,7 +80,6 @@ export default class ProductsDetails extends Component {
       <>
         <Link
           to="/cart"
-          data-testid="shopping-cart-button"
         >
           <CartButton className={ styles.CartButton } />
         </Link>

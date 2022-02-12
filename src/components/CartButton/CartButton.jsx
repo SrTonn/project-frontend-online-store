@@ -9,13 +9,13 @@ export class CartButton extends Component {
       <div className={ className }>
         <Link
           to="/cart"
+          data-testid="shopping-cart-button"
         >
           <span
             role="img"
             aria-label="shopping-cart"
           >
             🛒
-
           </span>
         </Link>
       </div>
