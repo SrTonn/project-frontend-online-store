@@ -69,9 +69,9 @@ export default class App extends React.Component {
           />
           <Route
             path="/productDetails/:productId"
-            component={ ProductsDetails }
-            render={ () => (
+            render={ (props) => (
               <ProductsDetails
+                { ...props }
                 { ...this.state }
                 updateState={ this.updateState }
                 updateCartItem={ this.updateCartItem }
