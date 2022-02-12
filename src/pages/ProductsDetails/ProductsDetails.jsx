@@ -29,6 +29,10 @@ export default class ProductsDetails extends Component {
   }
 
   handleClick = () => {
+    const { updateCartItem, match: { params: { productId } } } = this.props;
+    const { quantity } = this.state;
+    updateCartItem('add', productId, quantity);
+    console.log('teste');
   }
 
   handleClickQuantity = (operator = 'add') => {
@@ -107,4 +111,5 @@ ProductsDetails.propTypes = {
       productId: PropTypes.string,
     }),
   }).isRequired,
+  updateCartItem: PropTypes.func.isRequired,
 };
