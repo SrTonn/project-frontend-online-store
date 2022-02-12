@@ -22,7 +22,7 @@ export default class Card extends Component {
       totalPrice: cardPrice,
       quantity: 1,
     };
-    const hasIdInCart = cartProductList && cartProductList
+    const hasIdInCart = cartProductList
       .some((product) => product.id === id);
 
     if (hasIdInCart) {
