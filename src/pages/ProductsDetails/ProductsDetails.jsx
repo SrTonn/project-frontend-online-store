@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductDetails } from '../../services/api';
+import ButtonPlusMinus from '../../components/ButtonPlusMinus/ButtonPlusMinus';
 
 export default class ProductsDetails extends Component {
   state = {
@@ -54,7 +55,6 @@ export default class ProductsDetails extends Component {
 
           <div>
             <img src={ thumbnail } alt={ title } />
-
             <div>
               <ul>
                 {attrList}
@@ -62,6 +62,7 @@ export default class ProductsDetails extends Component {
             </div>
           </div>
         </div>
+        <ButtonPlusMinus />
       </>
     );
   }
