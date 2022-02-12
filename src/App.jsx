@@ -13,7 +13,7 @@ export default class App extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    updateState(name, value);
+    this.updateState(name, value);
   }
 
   updateState = (key, value) => {
@@ -57,7 +57,6 @@ export default class App extends React.Component {
               />
             ) }
           />
-          <Route path="/product/:categoryId" component={ Products } />
           <Route
             path="/cart"
             render={ (props) => (
