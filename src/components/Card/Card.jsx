@@ -53,7 +53,9 @@ export default class Card extends Component {
         >
           <span role="img" aria-label="add-cart"> Adicionar ao Carrinho 🛒</span>
         </button>
-        <p className={ styles.Price }>{cardPrice}</p>
+        <p className={ styles.Price }>
+          {cardPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+        </p>
       </div>
     );
   }
@@ -62,7 +64,7 @@ export default class Card extends Component {
 Card.propTypes = {
   id: PropTypes.string.isRequired,
   cardName: PropTypes.string.isRequired,
-  cardPrice: PropTypes.string.isRequired,
+  cardPrice: PropTypes.number.isRequired,
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,

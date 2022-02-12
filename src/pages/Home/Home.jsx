@@ -73,7 +73,7 @@ export default class Home extends Component {
                     key={ id }
                     dataTestId="product"
                     cardName={ title }
-                    cardPrice={ `R$${price}` }
+                    cardPrice={ price }
                     cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
                     id={ id }
                     updateState={ updateState }
