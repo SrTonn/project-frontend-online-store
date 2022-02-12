@@ -11,13 +11,22 @@ export default class Card extends Component {
       cardImage,
       cardPrice,
       cartProductList,
+      updateCartItem,
     } = this.props;
     const productInfos = {
       id,
       title: cardName,
       imageUrl: cardImage,
       price: cardPrice,
+      totalPrice: cardPrice,
+      quantity: 1,
     };
+    const hasIdInCart = cartProductList.some((product) => product.id === id);
+
+    if (hasIdInCart) {
+      updateCartItem('add', id);
+      return;
+    }
 
     updateState('cartProductList', [...cartProductList, productInfos]);
   }
@@ -68,5 +77,6 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
+  updateCartItem: PropTypes.func.isRequired,
   cartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
