@@ -13,9 +13,7 @@ export default class App extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState(() => ({
-      [name]: value,
-    }));
+    updateState(name, value);
   }
 
   updateState = (key, value) => {
