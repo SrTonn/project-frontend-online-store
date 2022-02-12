@@ -16,7 +16,6 @@ class Products extends Component {
 
   render() {
     const { products } = this.state;
-    console.log(products[0]);
     const productsEl = products.map((prod) => {
       const imgSrc = prod.thumbnail.replace('-I.jpg', '-W.webp');
       return (
