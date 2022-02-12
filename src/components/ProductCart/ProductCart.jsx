@@ -8,7 +8,7 @@ export default class ProductCart extends Component {
     return (
       <div className={ styles.CartItemContainer }>
         <button
-          onClick={ updateCartItem }
+          onClick={ () => updateCartItem('remove', id) }
           type="button"
           id={ id }
           name="remove"
@@ -34,7 +34,7 @@ export default class ProductCart extends Component {
         </div>
         <span>-</span>
         <button
-          onClick={ updateCartItem }
+          onClick={ () => updateCartItem('less', id) }
           type="button"
           id={ id }
           data-testid="product-decrease-quantity"
@@ -48,7 +48,7 @@ export default class ProductCart extends Component {
           id={ id }
           name="add"
           data-testid="product-increase-quantity"
-          onClick={ updateCartItem }
+          onClick={ () => updateCartItem('add', id) }
         >
           Adicionar
         </button>
