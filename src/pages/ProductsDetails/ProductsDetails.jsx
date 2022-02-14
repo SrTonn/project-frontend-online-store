@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductDetails } from '../../services/api';
+import ProductReview from '../../components/ProductReview/ProductReview';
+import Reviews from '../../components/Reviews/Reviews';
 import ButtonPlusMinus from '../../components/ButtonPlusMinus/ButtonPlusMinus';
 import { CartButton } from '../../components/CartButton/CartButton';
-
 import styles from './styles.module.css';
 
 export default class ProductsDetails extends Component {
   state = {
     product: {},
     quantity: 1,
+    reviews: [],
   }
 
   async componentDidMount() {
     const { match: { params: { productId } } } = this.props;
-
     const product = await getProductDetails(productId);
+
     this.setState({
       product: {
         id: productId,
@@ -25,7 +27,25 @@ export default class ProductsDetails extends Component {
         thumbnail: product.thumbnail.replace('I.jpg', 'W.webp'),
         attributes: product.attributes,
       },
+      reviews: JSON.parse(localStorage.getItem('reviews'))
+        ?.filter((item) => item.productId === productId) || [],
     });
+  }
+
+  onSaveReview = (review) => {
+    const { reviews } = this.state;
+    const storedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+    const productsReviews = [
+      ...reviews,
+      review,
+    ];
+
+    localStorage.setItem('reviews', JSON.stringify([
+      ...storedReviews,
+      review,
+    ]));
+
+    this.setState({ reviews: productsReviews });
   }
 
   handleClick = () => {
@@ -65,7 +85,7 @@ export default class ProductsDetails extends Component {
 
   render() {
     const {
-      product: { title, price, thumbnail, attributes }, quantity,
+      product: { title, price, thumbnail, attributes, id }, quantity, reviews,
     } = this.state;
 
     const attrList = attributes?.map((item) => (
@@ -100,6 +120,7 @@ export default class ProductsDetails extends Component {
             </div>
           </div>
         </div>
+
         <ButtonPlusMinus
           operator="minus"
           handleClickQuantity={ this.handleClickQuantity }
@@ -116,6 +137,9 @@ export default class ProductsDetails extends Component {
         >
           Adicionar ao carrinho
         </button>
+
+        <ProductReview productId={ id } onSaveReview={ this.onSaveReview } />
+        <Reviews reviews={ reviews } />
       </>
     );
   }
