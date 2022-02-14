@@ -11,7 +11,10 @@ export default class Cart extends Component {
     return (
       <div className={ styles.CartContainer }>
         <button type="button" onClick={ goBack }>go back</button>
-        <CartButton className={ styles.CartButton } />
+        <CartButton
+          className={ styles.CartButton }
+          cartList={ cartProductList.length }
+        />
         <h2>Carrinho de Compras</h2>
 
         <section className={ styles.CartItemsContainer }>

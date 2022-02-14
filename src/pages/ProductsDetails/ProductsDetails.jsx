@@ -88,6 +88,10 @@ export default class ProductsDetails extends Component {
       product: { title, price, thumbnail, attributes, id }, quantity, reviews,
     } = this.state;
 
+    const {
+      cartProductList,
+    } = this.props;
+
     const attrList = attributes?.map((item) => (
       <li key={ item.id }>
         {item.name}
@@ -101,7 +105,10 @@ export default class ProductsDetails extends Component {
         <Link
           to="/cart"
         >
-          <CartButton className={ styles.CartButton } />
+          <CartButton
+            className={ styles.CartButton }
+            cartList={ cartProductList.length }
+          />
         </Link>
 
         <div>
