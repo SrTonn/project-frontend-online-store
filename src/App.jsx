@@ -12,6 +12,10 @@ export default class App extends React.Component {
     cartProductList: [],
   }
 
+  componentDidUpdate() {
+    this.getCartQuantity();
+  }
+
   handleChange = ({ target: { name, value } }) => {
     this.updateState(name, value);
   }
@@ -39,6 +43,14 @@ export default class App extends React.Component {
       productList[i].totalPrice = productList[i].price * productList[i].quantity;
       return { cartProductList: productList };
     });
+  }
+
+  getCartQuantity = () => {
+    const {
+      cartProductList,
+    } = this.state;
+    const cartQuantity = cartProductList.map((product) => product.quantity);
+    console.log(cartQuantity);
   }
 
   render() {
