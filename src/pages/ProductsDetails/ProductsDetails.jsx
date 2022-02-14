@@ -110,7 +110,6 @@ export default class ProductsDetails extends Component {
             {' - '}
             {price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </h2>
-
           <div>
             <img src={ thumbnail } alt={ title } />
             <div>
