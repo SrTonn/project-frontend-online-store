@@ -13,6 +13,21 @@ export default class App extends React.Component {
     quantity: 0,
   }
 
+  componentDidMount() {
+    this.checkLocalStorage();
+  }
+
+  checkLocalStorage = () => {
+    if (!localStorage.getItem('CartItensQuantity')) {
+      localStorage.setItem('CartItensQuantity', JSON.stringify(0));
+    } else {
+      console.log('entrou', JSON.parse(localStorage.getItem('CartItensQuantity')));
+      this.setState({
+        quantity: JSON.parse(localStorage.getItem('CartItensQuantity')),
+      });
+    }
+  }
+
   handleChange = ({ target: { name, value } }) => {
     this.updateState(name, value);
   }
@@ -44,7 +59,7 @@ export default class App extends React.Component {
       productList[i].totalPrice = productList[i].price * productList[i].quantity;
       return { cartProductList: productList };
     }, () => {
-      this.getCartQuantity();
+      // this.getCartQuantity();
     });
   }
 
@@ -54,7 +69,9 @@ export default class App extends React.Component {
     } = this.state;
     const cartQuantity = cartProductList.map((product) => product.quantity)
       .reduce((a, b) => a + b, 0);
-    console.log(cartQuantity);
+    this.setState({
+      quantity: cartQuantity,
+    });
     localStorage.setItem('CartItensQuantity', JSON.stringify(cartQuantity));
   }
 
@@ -71,7 +88,6 @@ export default class App extends React.Component {
                 onChange={ this.handleChange }
                 updateState={ this.updateState }
                 updateCartItem={ this.updateCartItem }
-                updateCartButonQuantity={ this.getCartQuantity }
               />
             ) }
           />
