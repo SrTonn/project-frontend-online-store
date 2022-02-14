@@ -118,7 +118,6 @@ export default class ProductsDetails extends Component {
     } else {
       numberOfColumns.overflowY = 'scroll';
     }
-    console.log(numberOfColumns);
 
     return (
       <>

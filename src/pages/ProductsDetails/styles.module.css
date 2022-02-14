@@ -33,7 +33,14 @@
   box-sizing: border-box;
   height: 25em;
   margin: 0;
+  padding-top: 4em;
   width: 54em;
+}
+
+.AttributesList ul {
+  list-style: inside;
+  margin-block-end: 0;
+  margin-block-start: 0;
 }
 
 .CartButtons {
@@ -46,7 +53,11 @@
 
 .CartButtons .AddButton {
   align-items: center;
-  background: linear-gradient(0deg, rgba(20, 167, 62, 1) 0%, rgba(102, 247, 113, 1) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(20, 167, 62, 1) 0%,
+    rgba(102, 247, 113, 1) 100%
+  );
   border: none;
   border-radius: 20em;
   box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
