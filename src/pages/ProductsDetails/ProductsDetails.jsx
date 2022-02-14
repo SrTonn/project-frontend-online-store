@@ -23,7 +23,15 @@ export default class ProductsDetails extends Component {
       },
     } = this.props;
     const product = await getProductDetails(productId);
-    const { id, title, price, thumbnail, attributes, shipping } = product;
+    const {
+      id,
+      title,
+      price,
+      thumbnail,
+      attributes,
+      shipping,
+      available_quantity: availableQuantity,
+    } = product;
 
     this.setState({
       product: {
@@ -33,6 +41,7 @@ export default class ProductsDetails extends Component {
         thumbnail: thumbnail.replace('I.jpg', 'W.webp'),
         attributes,
         freeShipping: shipping.free_shipping,
+        availableQuantity,
       },
       reviews:
         JSON.parse(localStorage.getItem('reviews'))?.filter(
@@ -76,6 +85,7 @@ export default class ProductsDetails extends Component {
       imageUrl: product.thumbnail,
       price: product.price,
       totalPrice: quantity * product.price,
+      availableQuantity: product.availableQuantity,
       quantity,
     };
     updateState('cartProductList', [...cartProductList, productInfos]);
@@ -118,7 +128,6 @@ export default class ProductsDetails extends Component {
     } else {
       numberOfColumns.overflowY = 'scroll';
     }
-    console.log(numberOfColumns);
 
     return (
       <>
