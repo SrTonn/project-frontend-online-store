@@ -161,4 +161,5 @@ ProductsDetails.propTypes = {
   }).isRequired,
   updateCartItem: PropTypes.func.isRequired,
   updateState: PropTypes.func.isRequired,
+  quantity: PropTypes.number.isRequired,
 };

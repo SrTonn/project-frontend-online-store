@@ -21,7 +21,7 @@ export class CartButton extends Component {
           <span
             data-testid="shopping-cart-size"
           >
-            { quantity }
+            { ProductsDetails || quantity }
           </span>
         </Link>
       </div>
@@ -34,4 +34,5 @@ export default CartButton;
 CartButton.propTypes = {
   className: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
+  ProductsDetails: PropTypes.number.isRequired,
 };
