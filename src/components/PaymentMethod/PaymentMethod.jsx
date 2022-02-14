@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './styles.module.css';
+// import styles from './styles.module.css';
 
 class PaymentMethod extends Component {
   render() {
