@@ -10,10 +10,7 @@ export default class App extends React.Component {
     inputSearch: '',
     productList: [],
     cartProductList: [],
-  }
-
-  componentDidUpdate() {
-    this.getCartQuantity();
+    quantity: 0,
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -23,7 +20,11 @@ export default class App extends React.Component {
   updateState = (key, value) => {
     this.setState(() => ({
       [key]: value,
-    }));
+    }), () => {
+      if (key === 'cartProductList') {
+        this.getCartQuantity();
+      }
+    });
   }
 
   updateCartItem = (name, id, quantity = 0) => {
@@ -42,6 +43,8 @@ export default class App extends React.Component {
       if (name === 'add') productList[i].quantity += +quantity || 1;
       productList[i].totalPrice = productList[i].price * productList[i].quantity;
       return { cartProductList: productList };
+    }, () => {
+      this.getCartQuantity();
     });
   }
 
@@ -49,8 +52,10 @@ export default class App extends React.Component {
     const {
       cartProductList,
     } = this.state;
-    const cartQuantity = cartProductList.map((product) => product.quantity);
+    const cartQuantity = cartProductList.map((product) => product.quantity)
+      .reduce((a, b) => a + b, 0);
     console.log(cartQuantity);
+    localStorage.setItem('CartItensQuantity', JSON.stringify(cartQuantity));
   }
 
   render() {
@@ -66,6 +71,7 @@ export default class App extends React.Component {
                 onChange={ this.handleChange }
                 updateState={ this.updateState }
                 updateCartItem={ this.updateCartItem }
+                updateCartButonQuantity={ this.getCartQuantity }
               />
             ) }
           />
