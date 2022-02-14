@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import styles from './styles.module.css';
+import { FreeShippingTag } from '../FreeShippingTag/FreeShippingTag';
 
 export default class Card extends Component {
   handleAddToCartClick = () => {
@@ -22,8 +23,7 @@ export default class Card extends Component {
       totalPrice: cardPrice,
       quantity: 1,
     };
-    const hasIdInCart = cartProductList
-      .some((product) => product.id === id);
+    const hasIdInCart = cartProductList.some((product) => product.id === id);
 
     if (hasIdInCart) {
       updateCartItem('add', id);
@@ -31,16 +31,10 @@ export default class Card extends Component {
     }
 
     updateState('cartProductList', [...cartProductList, productInfos]);
-  }
+  };
 
   render() {
-    const {
-      cardName,
-      cardPrice,
-      cardImage,
-      dataTestId,
-      id,
-    } = this.props;
+    const { cardName, cardPrice, cardImage, dataTestId, id, freeShipping } = this.props;
 
     return (
       <div data-testid={ dataTestId } className={ styles.CardContainer }>
@@ -62,17 +56,30 @@ export default class Card extends Component {
             </span>
           </Link>
         </div>
-        <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
+        <div className={ styles.imgsContainer }>
+          <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
+          {freeShipping ? (
+            <div className={ styles.FreeShippingTag }>
+              <FreeShippingTag />
+            </div>
+          ) : null}
+        </div>
         <button
           className={ styles.Button }
           type="submit"
           data-testid="product-add-to-cart"
           onClick={ this.handleAddToCartClick }
         >
-          <span role="img" aria-label="add-cart"> Adicionar ao Carrinho 🛒</span>
+          <span role="img" aria-label="add-cart">
+            {' '}
+            Adicionar ao Carrinho 🛒
+          </span>
         </button>
         <p className={ styles.Price }>
-          {cardPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          {cardPrice.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
         </p>
       </div>
     );
@@ -94,4 +101,5 @@ Card.propTypes = {
   updateState: PropTypes.func,
   updateCartItem: PropTypes.func,
   cartProductList: PropTypes.arrayOf(PropTypes.object),
+  freeShipping: PropTypes.bool.isRequired,
 };

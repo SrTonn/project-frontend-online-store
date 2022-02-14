@@ -78,18 +78,20 @@ export default class Home extends Component {
           <main className={ styles.ContainerCards }>
             {productList && productList.length > 0
               && (
-                productList.map(({ id, price, title, thumbnail }) => (
-                  <Card
-                    key={ id }
-                    dataTestId="product"
-                    cardName={ title }
-                    cardPrice={ price }
-                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                    id={ id }
-                    updateState={ updateState }
-                    { ...this.props }
-                  />
-                )))}
+                productList
+                  .map(({ id, price, title, thumbnail, shipping }) => (
+                    <Card
+                      key={ id }
+                      dataTestId="product"
+                      cardName={ title }
+                      cardPrice={ price }
+                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                      id={ id }
+                      freeShipping={ shipping.free_shipping }
+                      updateState={ updateState }
+                      { ...this.props }
+                    />
+                  )))}
             {hasSearched && productList
             && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>

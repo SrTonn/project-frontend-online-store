@@ -80,3 +80,14 @@
 .Button:hover:before {
   width: 13em;
 }
+
+.imgsContainer {
+  display: flex;
+}
+
+.FreeShippingTag img {
+  margin-top: 65px;
+  position: absolute;
+  right: 40px;
+  width: 50px;
+}
