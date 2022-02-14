@@ -56,14 +56,10 @@ export default class Card extends Component {
             </span>
           </Link>
         </div>
-        <div className={ styles.imgsContainer }>
-          <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
-          {freeShipping ? (
-            <div className={ styles.FreeShippingTag }>
-              <FreeShippingTag />
-            </div>
-          ) : null}
-        </div>
+        <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
+        {freeShipping ? (
+          <FreeShippingTag className={ styles.FreeShippingTag } />
+        ) : null}
         <button
           className={ styles.Button }
           type="submit"

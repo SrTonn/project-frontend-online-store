@@ -24,8 +24,8 @@
 }
 
 .MenuAndCards nav label {
-  padding-bottom: 10px;
-  padding-left: 50px;
+  padding-bottom: 0.5em;
+  padding-left: 2em;
 }
 
 .MenuAndCards nav h1 {

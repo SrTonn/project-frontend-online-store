@@ -28,12 +28,15 @@
   margin-right: 2em;
 }
 
-.ImgAndAttr .AttributesList {
+.AttributesList {
   border: 1px black solid;
   box-sizing: border-box;
   height: 25em;
   margin: 0;
   width: 54em;
+}
+
+.AttributesList ul {
 }
 
 .CartButtons {

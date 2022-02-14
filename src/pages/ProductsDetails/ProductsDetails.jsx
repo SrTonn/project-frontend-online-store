@@ -107,6 +107,16 @@ export default class ProductsDetails extends Component {
       </li>
     ));
 
+    let numberOfColumns = {};
+
+    if (attributes?.length <= 16) {
+      numberOfColumns.columns = '1';
+    } else if (attributes?.length <= 32) {
+      numberOfColumns.columns = '2';
+    } else {
+      numberOfColumns.overflow = 'auto';
+    }
+
     return (
       <>
         <Link to="/cart">
@@ -128,7 +138,7 @@ export default class ProductsDetails extends Component {
           <div className={ styles.ImgAndAttr }>
             <img src={ thumbnail } alt={ title } />
             <div className={ styles.AttributesList }>
-              <ul>{attrList}</ul>
+              <ul style={ numberOfColumns }>{attrList}</ul>
             </div>
           </div>
         </div>
