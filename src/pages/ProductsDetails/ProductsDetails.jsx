@@ -110,13 +110,15 @@ export default class ProductsDetails extends Component {
     const numberOfColumns = {};
     const magicNumbers16 = 16;
     const magicNumbers32 = 32;
+
     if (attributes?.length <= magicNumbers16) {
       numberOfColumns.columns = '1';
     } else if (attributes?.length <= magicNumbers32) {
       numberOfColumns.columns = '2';
     } else {
-      numberOfColumns.overflow = 'auto';
+      numberOfColumns.overflowY = 'scroll';
     }
+    console.log(numberOfColumns);
 
     return (
       <>
@@ -138,8 +140,11 @@ export default class ProductsDetails extends Component {
           </div>
           <div className={ styles.ImgAndAttr }>
             <img src={ thumbnail } alt={ title } />
-            <div className={ styles.AttributesList }>
-              <ul style={ numberOfColumns }>{attrList}</ul>
+            <div
+              className={ styles.AttributesList }
+              style={ numberOfColumns }
+            >
+              <ul>{attrList}</ul>
             </div>
           </div>
         </div>
