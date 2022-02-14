@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Card from '../../components/Card/Card';
 import Input from '../../components/Input/Input';
 import { getProductsFromCategoryAndQuery, getCategories } from '../../services/api';
 import styles from './styles.module.css';
 import Categories from '../../components/Categories/Categories';
-import CategoryProducts from '../../components/CategoryProducts/CategoryProducts';
+// import CategoryProducts from '../../components/CategoryProducts/CategoryProducts';
+import { CartButton } from '../../components/CartButton/CartButton';
 
 export default class Home extends Component {
   state = {
     categories: [],
     hasSearched: false,
-    categoryClicked: false,
-    categoryId: '',
   }
 
   async componentDidMount() {
@@ -30,38 +28,37 @@ export default class Home extends Component {
   }
 
   handleCategoryClick = async ({ target }) => {
+    const { updateState } = this.props;
+
     const categoryId = target.id;
-    this.setState({ categoryClicked: true, categoryId });
+    const { results: products } = await getProductsFromCategoryAndQuery(categoryId);
+    updateState('productList', products);
   }
 
   render() {
-    const { inputSearch, productList } = this.props;
-    const { hasSearched, categories, categoryClicked, categoryId } = this.state;
+    const { inputSearch, productList, updateState } = this.props;
+    const { hasSearched, categories } = this.state;
     return (
       <>
-        <div className={ styles.SearchDiv }>
-          <Input
-            name="inputSearch"
-            dataTestId="query-input"
-            value={ inputSearch }
-            className={ styles.SearchInput }
-            { ...this.props }
-          />
-          <button
-            type="submit"
-            data-testid="query-button"
-            onClick={ this.handleClick }
-          >
-            Buscar
+        <div className={ styles.Header }>
+          <div className={ styles.SearchDiv }>
+            <Input
+              name="inputSearch"
+              dataTestId="query-input"
+              value={ inputSearch }
+              className={ styles.SearchInput }
+              { ...this.props }
+            />
+            <button
+              type="submit"
+              data-testid="query-button"
+              onClick={ this.handleClick }
+            >
+              Buscar
+            </button>
+          </div>
 
-          </button>
-
-          <Link
-            to="/cart"
-            data-testid="shopping-cart-button"
-          >
-            <span role="img" aria-label="shopping-cart">🛒 Carrinho de Compras</span>
-          </Link>
+          <CartButton className={ styles.CartButton } />
 
         </div>
         {!hasSearched && (
@@ -81,23 +78,20 @@ export default class Home extends Component {
           <main className={ styles.ContainerCards }>
             {productList && productList.length > 0
               && (
-                productList.map((item) => {
-                  const { id, price, title, thumbnail } = item;
-                  return (
-                    <Card
-                      key={ id }
-                      id={ id }
-                      dataTestId="product"
-                      cardName={ title }
-                      cardPrice={ `R$${price}` }
-                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                    />
-                  );
-                }))}
-
-            { categoryClicked && <CategoryProducts categoryId={ categoryId } /> }
-
-            {hasSearched && <p>Nenhum produto foi encontrado</p>}
+                productList.map(({ id, price, title, thumbnail }) => (
+                  <Card
+                    key={ id }
+                    dataTestId="product"
+                    cardName={ title }
+                    cardPrice={ price }
+                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                    id={ id }
+                    updateState={ updateState }
+                    { ...this.props }
+                  />
+                )))}
+            {hasSearched && productList
+            && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>
         </div>
       </>
