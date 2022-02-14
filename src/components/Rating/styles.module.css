@@ -1,13 +1,13 @@
 .StarButton {
   background-color: transparent;
   border: none;
-  outline: none;
   cursor: pointer;
+  outline: none;
   font-size: 25px;
 }
 
 .on {
-  color: #000;
+  color: black;
 }
 
 .off {
