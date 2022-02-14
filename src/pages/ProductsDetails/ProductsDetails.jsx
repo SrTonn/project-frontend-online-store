@@ -107,11 +107,12 @@ export default class ProductsDetails extends Component {
       </li>
     ));
 
-    let numberOfColumns = {};
-
-    if (attributes?.length <= 16) {
+    const numberOfColumns = {};
+    const magicNumbers16 = 16;
+    const magicNumbers32 = 32;
+    if (attributes?.length <= magicNumbers16) {
       numberOfColumns.columns = '1';
-    } else if (attributes?.length <= 32) {
+    } else if (attributes?.length <= magicNumbers32) {
       numberOfColumns.columns = '2';
     } else {
       numberOfColumns.overflow = 'auto';
