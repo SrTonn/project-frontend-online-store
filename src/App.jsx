@@ -4,6 +4,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import ProductsDetails from './pages/ProductsDetails/ProductsDetails';
+import Checkout from './pages/Checkout/Checkout';
 
 export default class App extends React.Component {
   state = {
@@ -66,6 +67,10 @@ export default class App extends React.Component {
                 updateCartItem={ this.updateCartItem }
               />
             ) }
+          />
+          <Route
+            path="/checkout"
+            component={ Checkout }
           />
           <Route
             path="/productDetails/:productId"

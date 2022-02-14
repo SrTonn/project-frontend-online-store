@@ -5,11 +5,22 @@ import PaymentMethod from '../../components/PaymentMethod/PaymentMethod';
 import styles from './style.module.css';
 
 class Checkout extends Component {
+  state = {
+    fullName: '',
+    email: '',
+    cpf: '',
+    phone: '',
+    cep: '',
+    address: '', 
+  }
+
   render() {
+    const { location: { state }  } = this.props;
+    console.log(state);
     return (
       <div className={ styles.CheckoutContainer }>
         <div>voltar</div>
-        <CheckoutProduts />
+        <CheckoutProduts products={ state } />
         <BuyerInfo />
         <PaymentMethod />
       </div>

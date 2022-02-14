@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ProductCart from '../../components/ProductCart/ProductCart';
 import styles from './styles.module.css';
 import { CartButton } from '../../components/CartButton/CartButton';
@@ -37,7 +38,17 @@ export default class Cart extends Component {
           {cartProductList.reduce((acc, item) => acc + item.totalPrice, 0)
             .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </h2>
-        <button type="button">Finalizar Compra</button>
+        <button type="button">
+          <Link
+            to={ {
+              pathname: 'checkout',
+              state: cartProductList,
+            } }
+            data-testid="checkout-products"
+          >
+            Finalizar Compra
+          </Link>
+        </button>
       </div>
     );
   }

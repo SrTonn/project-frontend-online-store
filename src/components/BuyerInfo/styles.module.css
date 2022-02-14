@@ -1,0 +1,24 @@
+.FormInput {
+  color: black;
+}
+
+.BuyerInfoContainer {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px auto;
+  margin-bottom: 20px;
+  max-width: 80%;
+  padding: 20px;
+}
+
+.Form {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Form input {
+  margin: 10px;
+  padding: 5px 9px;
+}
