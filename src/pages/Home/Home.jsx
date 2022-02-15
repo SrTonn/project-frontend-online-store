@@ -54,7 +54,12 @@ export default class Home extends Component {
               data-testid="query-button"
               onClick={ this.handleClick }
             >
-              Buscar
+              <span
+                role="img"
+                aria-label="search-butto"
+              >
+                🔎
+              </span>
             </button>
           </div>
 
