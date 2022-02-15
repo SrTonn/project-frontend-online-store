@@ -5,6 +5,7 @@ ul {
 .ProductContainer {
   border: 1px solid #ccc;
   border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   margin: 10px auto;
   max-width: 80%;
   padding: 20px;
@@ -16,7 +17,7 @@ ul {
 }
 
 .ProductImg {
-  height: 100px;
+  height: 85px;
   padding-right: 55px;
 }
 

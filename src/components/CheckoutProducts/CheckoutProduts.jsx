@@ -4,9 +4,19 @@ import HeadingSecondary from '../HeadindSecondary/HeadingSecondary';
 import styles from './styles.module.css';
 
 class CheckoutProduts extends Component {
+  calculateTotal = (products) => {
+    let total = 0;
+    if (products && products.length > 0) {
+      total = products
+        .map(({ price, quantity }) => price * quantity)
+        .reduce((prev, curr) => prev + curr);
+    }
+    return total;
+  }
+
   render() {
     const { products } = this.props;
-    const total = 1000;
+    const total = this.calculateTotal(products);
     let produtsList;
     if (products && products.length > 0) {
       produtsList = products.map((prod) => (
@@ -20,7 +30,7 @@ class CheckoutProduts extends Component {
           <h5 className={ styles.ProductPrice }>
             R$
             {' '}
-            {prod.price.toFixed(2)}
+            {(prod.price * prod.quantity).toFixed(2)}
           </h5>
         </li>
       ));

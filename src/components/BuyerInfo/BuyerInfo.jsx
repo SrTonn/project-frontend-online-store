@@ -1,99 +1,100 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../Input/Input';
+import PaymentMethod from '../PaymentMethod/PaymentMethod';
 import HeadingSecondary from '../HeadindSecondary/HeadingSecondary';
 import styles from './styles.module.css';
 
 class BuyerInfo extends Component {
+  state = {}
+
   render() {
-    const { fullName,
-      email,
-      cpf,
-      phone,
-      cep,
-      address, onFormSubmit, handleChange } = this.props;
+    const { onInputChange, onFormSubmit, isDisabled } = this.props;
 
     return (
-      <div className={ styles.BuyerInfoContainer }>
-        <HeadingSecondary title="Informações do comprador" />
-        <form className={ styles.Form }>
-          <Input
-            type="text"
-            name="fullname"
-            className={ styles.FormInput }
-            placeholder="Nome Completo"
-            value={ fullName }
-            onChange={ handleChange }
-            dataTestId="checkout-fullname"
-          />
-          <Input
-            type="email"
-            name="email"
-            className={ styles.FormInput }
-            placeholder="Email"
-            value={ email }
-            onChange={ handleChange }
-            dataTestId="checkout-email"
-          />
-          <Input
-            type="text"
-            name="cpf"
-            className={ styles.FormInput }
-            placeholder="CPF"
-            value={ cpf }
-            onChange={ handleChange }
-            dataTestId="checkout-cpf"
-          />
-          <Input
-            type="phone"
-            name="phone"
-            className={ styles.FormInput }
-            placeholder="Telefone"
-            value={ phone }
-            onChange={ handleChange }
-            dataTestId="checkout-phone"
-          />
-          <Input
-            type="text"
-            name="cep"
-            className={ styles.FormInput }
-            placeholder="CEP"
-            value={ cep }
-            onChange={ handleChange }
-            dataTestId="checkout-cep"
-          />
-          <Input
-            type="text"
-            name="endereco"
-            className={ styles.FormInput }
-            placeholder="Endereço"
-            value={ address }
-            onChange={ handleChange }
-            dataTestId="checkout-address"
-          />
-          <button type="submit" onSubmit={ onFormSubmit }>
+      <form className={ styles.Form } onSubmit={ onFormSubmit }>
+        <div className={ styles.BuyerInfoContainer }>
+          <HeadingSecondary title="Informações do comprador" />
+          <div className={ styles.FormContainer }>
+            <Input
+              type="text"
+              name="fullname"
+              inputLabel="Nome Completo:"
+              placeholder="João da Silva"
+              onChange={ onInputChange }
+              dataTestId="checkout-fullname"
+            />
+            <Input
+              type="email"
+              name="email"
+              inputLabel="Email:"
+              placeholder="joao@email.com"
+              onChange={ onInputChange }
+              dataTestId="checkout-email"
+            />
+            <Input
+              type="text"
+              name="cpf"
+              inputLabel="CPF:"
+              placeholder="000.000.000-00"
+              onChange={ onInputChange }
+              dataTestId="checkout-cpf"
+            />
+          </div>
+          <div className={ styles.FormContainer }>
+            <Input
+              type="phone"
+              name="phone"
+              inputLabel="Telefone:"
+              placeholder="(00) 1234-5678"
+              onChange={ onInputChange }
+              dataTestId="checkout-phone"
+            />
+            <Input
+              type="text"
+              name="cep"
+              inputLabel="CEP:"
+              placeholder="00.000-000"
+              onChange={ onInputChange }
+              dataTestId="checkout-cep"
+            />
+            <Input
+              type="text"
+              name="address"
+              inputLabel="Endereço:"
+              placeholder="Rua Principal"
+              onChange={ onInputChange }
+              dataTestId="checkout-address"
+            />
+          </div>
+        </div>
+        <PaymentMethod onRadioChange={ onInputChange } />
+        <div className={ styles.CheckoutButton }>
+          <button
+            type="submit"
+            className={ styles.BtnSubmit }
+            onSubmit={ onFormSubmit }
+            disabled={ isDisabled }
+          >
             Comprar
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
+
     );
   }
 }
 
 BuyerInfo.propTypes = {
-  fullName: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  cpf: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  cep: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func,
   onFormSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
+  isDisabled: PropTypes.bool,
 };
 
 BuyerInfo.defaultProps = {
+  onInputChange: () => '',
   onFormSubmit: () => '',
-  handleChange: () => '',
+  isDisabled: false,
 };
 
 export default BuyerInfo;
