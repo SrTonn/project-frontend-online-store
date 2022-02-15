@@ -21,9 +21,9 @@ export default class App extends React.Component {
     if (!localStorage.getItem('CartItensQuantity')) {
       localStorage.setItem('CartItensQuantity', JSON.stringify(0));
     } else {
-      console.log('entrou', JSON.parse(localStorage.getItem('CartItensQuantity')));
       this.setState({
         quantity: JSON.parse(localStorage.getItem('CartItensQuantity')),
+        cartProductList: JSON.parse(localStorage.getItem('CartProductList')),
       });
     }
   }
@@ -59,7 +59,7 @@ export default class App extends React.Component {
       productList[i].totalPrice = productList[i].price * productList[i].quantity;
       return { cartProductList: productList };
     }, () => {
-      // this.getCartQuantity();
+      this.getCartQuantity();
     });
   }
 
@@ -73,6 +73,7 @@ export default class App extends React.Component {
       quantity: cartQuantity,
     });
     localStorage.setItem('CartItensQuantity', JSON.stringify(cartQuantity));
+    localStorage.setItem('CartProductList', JSON.stringify(cartProductList));
   }
 
   render() {

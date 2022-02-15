@@ -3,8 +3,15 @@ import React, { Component } from 'react';
 import styles from './styles.module.css';
 
 export default class ProductCart extends Component {
+  getLocalStorageCart = () => {
+    const { id } = this.props;
+    const LsCartProductList = JSON.parse(localStorage.getItem('CartProductList'));
+    const itemInCart = LsCartProductList.find((item) => item.id === id);
+    return itemInCart.quantity;
+  };
+
   render() {
-    const { id, title, imageUrl, price, quantity, updateCartItem } = this.props;
+    const { id, title, imageUrl, price, updateCartItem } = this.props;
     return (
       <div className={ styles.CartItemContainer }>
         <button
@@ -42,7 +49,12 @@ export default class ProductCart extends Component {
         >
           Remover
         </button>
-        <span data-testid="shopping-cart-product-quantity">{quantity}</span>
+        <span
+          data-testid="shopping-cart-product-quantity"
+        >
+          {this.getLocalStorageCart()}
+
+        </span>
         <button
           type="button"
           id={ id }
@@ -66,6 +78,5 @@ ProductCart.propTypes = {
   title: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
   updateCartItem: PropTypes.func.isRequired,
 };
