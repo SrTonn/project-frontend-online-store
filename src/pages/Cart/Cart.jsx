@@ -25,6 +25,7 @@ export default class Cart extends Component {
                   title={ product.title }
                   quantity={ product.quantity }
                   price={ product.totalPrice }
+                  availableQuantity={ product.availableQuantity }
                   { ...this.props }
                 />
               ))
