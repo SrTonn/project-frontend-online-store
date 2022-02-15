@@ -116,11 +116,11 @@ export default class ProductsDetails extends Component {
       quantity,
       reviews,
     } = this.state;
-    // const { history: { goBack }, cartProductList } = this.props;
+    const { history: { goBack }, cartProductList } = this.props;
     const isDisabledAddOne = quantity >= availableQuantity;
-    // const cartItemQuantity = cartProductList?.find((product) => product.id === id)
-    // ?.quantity;
-    // const isDisabledAddToCart = quantity + (cartItemQuantity || 1) > availableQuantity;
+    const cartItemQuantity = cartProductList?.find((product) => product.id === id)
+      ?.quantity;
+    const isDisabledAddToCart = quantity + (cartItemQuantity || 1) > availableQuantity;
 
     const attrList = attributes?.map((item) => (
       <li key={ item.id }>
@@ -187,10 +187,9 @@ export default class ProductsDetails extends Component {
           <ButtonPlusMinus
             operator="add"
             onClick={ this.handleClickQuantity }
-            // className={
-            //   `${styles.AddButton} ${isDisabledAddOne ? styles.Disabled : null}`
-            // }
-            className={ styles.AddToCartButton }
+            className={
+              `${styles.AddButton} ${isDisabledAddOne ? styles.Disabled : null}`
+            }
             isDisabled={ isDisabledAddOne }
           />
           <button
@@ -198,6 +197,9 @@ export default class ProductsDetails extends Component {
             data-testid="product-detail-add-to-cart"
             onClick={ this.handleClick }
             className={ styles.AddToCartButton }
+            // className={
+            //   `${styles.AddToCartButton} ${isDisabledAddToCart ? styles.Disabled : null}`
+            // }
           >
             Adicionar ao carrinho
           </button>
