@@ -23,7 +23,15 @@ export default class ProductsDetails extends Component {
       },
     } = this.props;
     const product = await getProductDetails(productId);
-    const { id, title, price, thumbnail, attributes, shipping } = product;
+    const {
+      id,
+      title,
+      price,
+      thumbnail,
+      attributes,
+      shipping,
+      available_quantity: availableQuantity,
+    } = product;
 
     this.setState({
       product: {
@@ -33,6 +41,7 @@ export default class ProductsDetails extends Component {
         thumbnail: thumbnail.replace('I.jpg', 'W.webp'),
         attributes,
         freeShipping: shipping.free_shipping,
+        availableQuantity,
       },
       reviews:
         JSON.parse(localStorage.getItem('reviews'))?.filter(
@@ -76,6 +85,7 @@ export default class ProductsDetails extends Component {
       imageUrl: product.thumbnail,
       price: product.price,
       totalPrice: quantity * product.price,
+      availableQuantity: product.availableQuantity,
       quantity,
     };
     updateState('cartProductList', [...cartProductList, productInfos]);
@@ -94,10 +104,23 @@ export default class ProductsDetails extends Component {
 
   render() {
     const {
-      product: { title, price, thumbnail, attributes, id, freeShipping },
+      product: {
+        title,
+        price,
+        thumbnail,
+        attributes,
+        id,
+        freeShipping,
+        availableQuantity,
+      },
       quantity,
       reviews,
     } = this.state;
+    const { history: { goBack }, cartProductList } = this.props;
+    const isDisabledAddOne = quantity >= availableQuantity;
+    const cartItemQuantity = cartProductList?.find((product) => product.id === id)
+      ?.quantity;
+    const isDisabledAddToCart = quantity + (cartItemQuantity || 1) > availableQuantity;
 
     const attrList = attributes?.map((item) => (
       <li key={ item.id }>
@@ -125,6 +148,12 @@ export default class ProductsDetails extends Component {
 
         <div>
           <div className={ styles.Header }>
+            <button
+              type="button"
+              onClick={ goBack }
+            >
+              go back
+            </button>
             <h2 data-testid="product-detail-name">
               {title}
               {' - '}
@@ -146,20 +175,26 @@ export default class ProductsDetails extends Component {
         <div className={ styles.CartButtons }>
           <ButtonPlusMinus
             operator="minus"
-            handleClickQuantity={ this.handleClickQuantity }
+            onClick={ this.handleClickQuantity }
             className={ styles.MinusButton }
           />
           <span>{quantity}</span>
           <ButtonPlusMinus
             operator="add"
-            handleClickQuantity={ this.handleClickQuantity }
-            className={ styles.AddButton }
+            onClick={ this.handleClickQuantity }
+            className={
+              `${styles.AddButton} ${isDisabledAddOne ? styles.Disabled : null}`
+            }
+            isDisabled={ isDisabledAddOne }
           />
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
             onClick={ this.handleClick }
             className={ styles.AddToCartButton }
+            // className={
+            //   `${styles.AddToCartButton} ${isDisabledAddToCart ? styles.Disabled : null}`
+            // }
           >
             Adicionar ao carrinho
           </button>
@@ -181,4 +216,7 @@ ProductsDetails.propTypes = {
   }).isRequired,
   updateCartItem: PropTypes.func.isRequired,
   updateState: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
 };
