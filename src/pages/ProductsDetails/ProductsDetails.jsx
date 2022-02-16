@@ -23,15 +23,7 @@ export default class ProductsDetails extends Component {
       },
     } = this.props;
     const product = await getProductDetails(productId);
-    const {
-      id,
-      title,
-      price,
-      thumbnail,
-      attributes,
-      shipping,
-      available_quantity: availableQuantity,
-    } = product;
+    const { id, title, price, thumbnail, attributes, shipping } = product;
 
     this.setState({
       product: {
@@ -41,7 +33,6 @@ export default class ProductsDetails extends Component {
         thumbnail: thumbnail.replace('I.jpg', 'W.webp'),
         attributes,
         freeShipping: shipping.free_shipping,
-        availableQuantity,
       },
       reviews:
         JSON.parse(localStorage.getItem('reviews'))?.filter(
@@ -85,7 +76,6 @@ export default class ProductsDetails extends Component {
       imageUrl: product.thumbnail,
       price: product.price,
       totalPrice: quantity * product.price,
-      availableQuantity: product.availableQuantity,
       quantity,
     };
     updateState('cartProductList', [...cartProductList, productInfos]);
@@ -104,23 +94,10 @@ export default class ProductsDetails extends Component {
 
   render() {
     const {
-      product: {
-        title,
-        price,
-        thumbnail,
-        attributes,
-        id,
-        freeShipping,
-        availableQuantity,
-      },
+      product: { title, price, thumbnail, attributes, id, freeShipping },
       quantity,
       reviews,
     } = this.state;
-    const { history: { goBack }, cartProductList } = this.props;
-    const isDisabledAddOne = quantity >= availableQuantity;
-    const cartItemQuantity = cartProductList?.find((product) => product.id === id)
-      ?.quantity;
-    const isDisabledAddToCart = quantity + (cartItemQuantity || 1) > availableQuantity;
 
     const attrList = attributes?.map((item) => (
       <li key={ item.id }>
@@ -131,13 +108,15 @@ export default class ProductsDetails extends Component {
     ));
 
     const numberOfColumns = {};
-    const magicNumber16 = 16;
-    if (attributes?.length <= magicNumber16) {
+    const magicNumbers16 = 16;
+    const magicNumbers32 = 32;
+
+    if (attributes?.length <= magicNumbers16) {
       numberOfColumns.columns = '1';
-    } else if (attributes?.length <= magicNumber16 * 2) {
+    } else if (attributes?.length <= magicNumbers32) {
       numberOfColumns.columns = '2';
     } else {
-      numberOfColumns.overflow = 'auto';
+      numberOfColumns.overflowY = 'scroll';
     }
 
     return (
@@ -148,12 +127,6 @@ export default class ProductsDetails extends Component {
 
         <div>
           <div className={ styles.Header }>
-            <button
-              type="button"
-              onClick={ goBack }
-            >
-              go back
-            </button>
             <h2 data-testid="product-detail-name">
               {title}
               {' - '}
@@ -166,8 +139,11 @@ export default class ProductsDetails extends Component {
           </div>
           <div className={ styles.ImgAndAttr }>
             <img src={ thumbnail } alt={ title } />
-            <div className={ styles.AttributesList }>
-              <ul style={ numberOfColumns }>{attrList}</ul>
+            <div
+              className={ styles.AttributesList }
+              style={ numberOfColumns }
+            >
+              <ul>{attrList}</ul>
             </div>
           </div>
         </div>
@@ -175,26 +151,20 @@ export default class ProductsDetails extends Component {
         <div className={ styles.CartButtons }>
           <ButtonPlusMinus
             operator="minus"
-            onClick={ this.handleClickQuantity }
+            handleClickQuantity={ this.handleClickQuantity }
             className={ styles.MinusButton }
           />
           <span>{quantity}</span>
           <ButtonPlusMinus
             operator="add"
-            onClick={ this.handleClickQuantity }
-            className={
-              `${styles.AddButton} ${isDisabledAddOne ? styles.Disabled : null}`
-            }
-            isDisabled={ isDisabledAddOne }
+            handleClickQuantity={ this.handleClickQuantity }
+            className={ styles.AddButton }
           />
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
             onClick={ this.handleClick }
             className={ styles.AddToCartButton }
-            // className={
-            //   `${styles.AddToCartButton} ${isDisabledAddToCart ? styles.Disabled : null}`
-            // }
           >
             Adicionar ao carrinho
           </button>
@@ -216,7 +186,4 @@ ProductsDetails.propTypes = {
   }).isRequired,
   updateCartItem: PropTypes.func.isRequired,
   updateState: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
 };
