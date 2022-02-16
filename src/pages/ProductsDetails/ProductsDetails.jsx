@@ -17,11 +17,7 @@ export default class ProductsDetails extends Component {
   };
 
   async componentDidMount() {
-    const {
-      match: {
-        params: { productId },
-      },
-    } = this.props;
+    const { cartProductList, match: { params: { productId } } } = this.props;
     const product = await getProductDetails(productId);
     const {
       id,
@@ -41,7 +37,9 @@ export default class ProductsDetails extends Component {
         thumbnail: thumbnail.replace('I.jpg', 'W.webp'),
         attributes,
         freeShipping: shipping.free_shipping,
-        availableQuantity,
+        availableQuantity: cartProductList
+          .find((cartProduct) => cartProduct.id === id)?.availableQuantity
+          || availableQuantity,
       },
       reviews:
         JSON.parse(localStorage.getItem('reviews'))?.filter(
@@ -71,14 +69,13 @@ export default class ProductsDetails extends Component {
     } = this.props;
     const { quantity, product } = this.state;
 
-    const hasIdInCart = cartProductList.some(
-      (productInfo) => productInfo.id === productId,
-    );
+    const hasIdInCart = cartProductList.some(({ id }) => id === productId);
 
     if (hasIdInCart) {
       updateCartItem('add', productId, quantity);
       return;
     }
+
     const productInfos = {
       id: productId,
       title: product.title,
@@ -88,6 +85,7 @@ export default class ProductsDetails extends Component {
       availableQuantity: product.availableQuantity,
       quantity,
     };
+
     updateState('cartProductList', [...cartProductList, productInfos]);
   };
 
@@ -118,9 +116,10 @@ export default class ProductsDetails extends Component {
     } = this.state;
     const { history: { goBack }, cartProductList } = this.props;
     const isDisabledAddOne = quantity >= availableQuantity;
+    const isDisabledMinusOne = quantity === 1;
     const cartItemQuantity = cartProductList?.find((product) => product.id === id)
-      ?.quantity;
-    const isDisabledAddToCart = quantity + (cartItemQuantity || 1) > availableQuantity;
+      ?.quantity || 0;
+    const isDisabledAddToCart = quantity + cartItemQuantity > availableQuantity;
     const attrList = attributes?.map((item) => (
       <li key={ item.id }>
         {item.name}
@@ -180,14 +179,17 @@ export default class ProductsDetails extends Component {
           <ButtonPlusMinus
             operator="minus"
             onClick={ this.handleClickQuantity }
-            className={ styles.MinusButton }
+            className={
+              `${styles.MinusButton} ${isDisabledMinusOne ? 'disabled' : null}`
+            }
+            isDisabled={ isDisabledMinusOne }
           />
           <span>{quantity}</span>
           <ButtonPlusMinus
             operator="add"
             onClick={ this.handleClickQuantity }
             className={
-              `${styles.AddButton} ${isDisabledAddOne ? styles.Disabled : null}`
+              `${styles.AddButton} ${isDisabledAddOne ? 'disabled' : null}`
             }
             isDisabled={ isDisabledAddOne }
           />
@@ -196,7 +198,7 @@ export default class ProductsDetails extends Component {
             data-testid="product-detail-add-to-cart"
             onClick={ this.handleClick }
             className={
-              `${styles.AddToCartButton} ${isDisabledAddToCart ? styles.Disabled : null}`
+              `${styles.AddToCartButton} ${isDisabledAddToCart ? 'disabled' : null}`
             }
             disabled={ isDisabledAddToCart }
           >

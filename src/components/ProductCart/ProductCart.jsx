@@ -46,17 +46,15 @@ export default class ProductCart extends Component {
         <ButtonPlusMinus
           operator="minus"
           onClick={ () => updateCartItem('less', id) }
-          className={ styles.MinusButton }
           dataTestId="product-decrease-quantity"
         />
         <span data-testid="shopping-cart-product-quantity">{quantity}</span>
         <ButtonPlusMinus
           operator="add"
           onClick={ () => updateCartItem('add', id) }
-          className={ styles.AddButton }
+          className={ `${isDisabledAddOne ? 'disabled' : null}` }
           isDisabled={ isDisabledAddOne }
           dataTestId="product-increase-quantity"
-
         />
         <span className={ styles.Price }>
           {price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}

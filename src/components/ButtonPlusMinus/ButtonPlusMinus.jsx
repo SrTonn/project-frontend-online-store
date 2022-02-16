@@ -20,12 +20,13 @@ export default class ButtonPlusMinus extends React.Component {
 
 ButtonPlusMinus.defaultProps = {
   className: '',
+  isDisabled: false,
 };
 
 ButtonPlusMinus.propTypes = {
   onClick: PropTypes.func.isRequired,
-  operator: PropTypes.func.isRequired,
+  operator: PropTypes.string.isRequired,
   className: PropTypes.string,
-  isDisabled: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool,
   dataTestId: PropTypes.string.isRequired,
 };
