@@ -52,24 +52,11 @@ export default class ProductCart extends Component {
         <ButtonPlusMinus
           operator="minus"
           onClick={ () => updateCartItem('less', id) }
-          type="button"
-          id={ id }
-          data-testid="product-decrease-quantity"
-          name="less"
-        >
-          Remover
-        </button>
-        <span
-          data-testid="shopping-cart-product-quantity"
-        >
-          {this.getLocalStorageCart()}
-
-        </span>
-        <button
-          type="button"
-          id={ id }
-          name="add"
-          data-testid="product-increase-quantity"
+          dataTestId="product-decrease-quantity"
+        />
+        <span data-testid="shopping-cart-product-quantity">{quantity}</span>
+        <ButtonPlusMinus
+          operator="add"
           onClick={ () => updateCartItem('add', id) }
           className={ `${isDisabledAddOne ? 'disabled' : null}` }
           isDisabled={ isDisabledAddOne }

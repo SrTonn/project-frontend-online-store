@@ -124,7 +124,9 @@ export default class ProductsDetails extends Component {
       quantity,
       reviews,
     } = this.state;
-    const { history: { goBack }, cartProductList, quantity: quantityDetails, } = this.props;
+    const { history: { goBack },
+      cartProductList,
+      quantity: quantityDetails } = this.props;
     const isDisabledAddOne = quantity >= availableQuantity;
     const isDisabledMinusOne = quantity === 1;
     const cartItemQuantity = cartProductList?.find((product) => product.id === id)
@@ -160,7 +162,7 @@ export default class ProductsDetails extends Component {
             cartList={ cartProductList.length }
             ProductsDetails={ quantityDetails }
           />
-              
+
         </Link>
 
         <div>
