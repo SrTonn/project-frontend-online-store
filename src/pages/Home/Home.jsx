@@ -54,7 +54,12 @@ export default class Home extends Component {
               data-testid="query-button"
               onClick={ this.handleClick }
             >
-              Buscar
+              <span
+                role="img"
+                aria-label="search-butto"
+              >
+                🔎
+              </span>
             </button>
           </div>
 
@@ -76,22 +81,29 @@ export default class Home extends Component {
             onInputClick={ this.handleCategoryClick }
           />
           <main className={ styles.ContainerCards }>
-            {productList && productList.length > 0
+            {productList?.length > 0
               && (
-                productList
-                  .map(({ id, price, title, thumbnail, shipping }) => (
-                    <Card
-                      key={ id }
-                      dataTestId="product"
-                      cardName={ title }
-                      cardPrice={ price }
-                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                      id={ id }
-                      freeShipping={ shipping.free_shipping }
-                      updateState={ updateState }
-                      { ...this.props }
-                    />
-                  )))}
+                productList.map(({
+                  id,
+                  price,
+                  title,
+                  thumbnail,
+                  shipping,
+                  available_quantity: availableQuantity,
+                }) => (
+                  <Card
+                    key={ id }
+                    dataTestId="product"
+                    cardName={ title }
+                    cardPrice={ price }
+                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                    id={ id }
+                    freeShipping={ shipping.free_shipping }
+                    updateState={ updateState }
+                    availableQuantity={ availableQuantity }
+                    { ...this.props }
+                  />
+                )))}
             {hasSearched && productList
             && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>
