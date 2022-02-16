@@ -18,7 +18,7 @@ export default class App extends React.Component {
   }
 
   checkLocalStorage = () => {
-    if (!localStorage.getItem('CartItensQuantity')) {
+    if (!localStorage.getItem('CartProductList')) {
       localStorage.setItem('CartItensQuantity', JSON.stringify(0));
     } else {
       this.setState({
