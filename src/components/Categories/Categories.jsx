@@ -13,7 +13,7 @@ export default class Categories extends Component {
       <nav className={ styles.CategoryContainer }>
         <h1>Categorias:</h1>
         {categories
-          ?.map((item) => (
+          .map((item) => (
             <label key={ item.id } data-testid="category" htmlFor={ item.id }>
               <input
                 type="radio"
