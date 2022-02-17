@@ -1,5 +1,10 @@
 .TagP {
+  font-size: 30px;
+  left: 28em;
+  position: absolute;
   text-align: center;
+  top: 10em;
+  width: 26em;
 }
 
 .ContainerCards {
@@ -37,16 +42,37 @@
   width: 80vw;
 }
 
-.SearchDiv {
+.Header {
+  align-items: center;
   display: flex;
+  height: 6em;
+  justify-content: center;
 }
 
-.Header {
+.SearchDiv {
+  align-items: center;
   display: flex;
+  margin-left: 8em;
+}
+
+.SearchDiv button {
+  border-radius: 10px;
+  font-size: 30px;
+  height: 1.5em;
+
+  /* position: fixed; */
+
+  /* right: 9.1em; */
+  width: 3em;
+}
+
+.SearchDiv input {
+  height: 3em;
+  width: 50em;
 }
 
 .CartButton {
   font-size: 30px;
   position: absolute;
-  right: 10px;
+  right: 2em;
 }
