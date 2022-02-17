@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export class CartButton extends Component {
   render() {
     const { className, quantity, ProductsDetails } = this.props;
-    // console.log(ProductsDetails);
+
     return (
       <div className={ className }>
         <Link
