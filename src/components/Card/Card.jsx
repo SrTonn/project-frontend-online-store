@@ -13,6 +13,7 @@ export default class Card extends Component {
       cardPrice,
       cartProductList,
       updateCartItem,
+      availableQuantity,
     } = this.props;
     const productInfos = {
       id,
@@ -21,9 +22,10 @@ export default class Card extends Component {
       price: cardPrice,
       totalPrice: cardPrice,
       quantity: 1,
+      availableQuantity,
+
     };
-    const hasIdInCart = cartProductList
-      .some((product) => product.id === id);
+    const hasIdInCart = cartProductList.some((product) => product.id === id);
 
     if (hasIdInCart) {
       updateCartItem('add', id);
@@ -31,7 +33,7 @@ export default class Card extends Component {
     }
 
     updateState('cartProductList', [...cartProductList, productInfos]);
-  }
+  };
 
   render() {
     const {
@@ -46,8 +48,7 @@ export default class Card extends Component {
       <div data-testid={ dataTestId } className={ styles.CardContainer }>
         <div className={ styles.CardTitleContainer }>
           <Link
-            to={ { pathname: `/productDetails/${id}`,
-            } }
+            to={ { pathname: `/productDetails/${id}` } }
             data-testid="product-detail-link"
           >
             <span
@@ -90,6 +91,7 @@ Card.propTypes = {
   id: PropTypes.string.isRequired,
   cardName: PropTypes.string.isRequired,
   cardPrice: PropTypes.number.isRequired,
+  availableQuantity: PropTypes.number.isRequired,
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
   updateState: PropTypes.func,
