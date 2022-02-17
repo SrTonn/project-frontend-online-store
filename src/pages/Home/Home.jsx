@@ -91,6 +91,7 @@ export default class Home extends Component {
                   price,
                   title,
                   thumbnail,
+                  shipping,
                   available_quantity: availableQuantity,
                 }) => (
                   <Card
@@ -100,6 +101,7 @@ export default class Home extends Component {
                     cardPrice={ price }
                     cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
                     id={ id }
+                    freeShipping={ shipping.free_shipping }
                     updateState={ updateState }
                     availableQuantity={ availableQuantity }
                     { ...this.props }

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import styles from './styles.module.css';
+import { FreeShippingTag } from '../FreeShippingTag/FreeShippingTag';
 
 export default class Card extends Component {
   handleAddToCartClick = () => {
@@ -42,6 +43,7 @@ export default class Card extends Component {
       cardImage,
       dataTestId,
       id,
+      freeShipping,
     } = this.props;
 
     return (
@@ -65,13 +67,19 @@ export default class Card extends Component {
           </Link>
         </div>
         <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
+        {freeShipping ? (
+          <FreeShippingTag className={ styles.FreeShippingTag } />
+        ) : null}
         <button
           className={ styles.Button }
           type="submit"
           data-testid="product-add-to-cart"
           onClick={ this.handleAddToCartClick }
         >
-          <span role="img" aria-label="add-cart"> Adicionar ao Carrinho 🛒</span>
+          <span role="img" aria-label="add-cart">
+            {' '}
+            Adicionar ao Carrinho 🛒
+          </span>
         </button>
         <p className={ styles.Price }>
           {cardPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
@@ -97,4 +105,5 @@ Card.propTypes = {
   updateState: PropTypes.func,
   updateCartItem: PropTypes.func,
   cartProductList: PropTypes.arrayOf(PropTypes.object),
+  freeShipping: PropTypes.bool.isRequired,
 };
