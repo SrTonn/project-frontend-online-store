@@ -31,7 +31,7 @@ export default class Cart extends Component {
                   id={ product.id }
                   imageUrl={ product.imageUrl }
                   title={ product.title }
-                  quantity={ product.quantity }
+                  moreOneQuantity={ product.quantity }
                   price={ product.totalPrice }
                   availableQuantity={ product.availableQuantity }
                   { ...this.props }

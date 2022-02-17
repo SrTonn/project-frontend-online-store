@@ -7,6 +7,7 @@ import Reviews from '../../components/Reviews/Reviews';
 import ButtonPlusMinus from '../../components/ButtonPlusMinus/ButtonPlusMinus';
 import { CartButton } from '../../components/CartButton/CartButton';
 import styles from './styles.module.css';
+import { FreeShippingTag } from '../../components/FreeShippingTag/FreeShippingTag';
 
 export default class ProductsDetails extends Component {
   state = {
@@ -24,6 +25,7 @@ export default class ProductsDetails extends Component {
       price,
       thumbnail,
       attributes,
+      shipping,
       available_quantity: availableQuantityById,
     } = product;
 
@@ -46,6 +48,7 @@ export default class ProductsDetails extends Component {
         price,
         thumbnail: thumbnail.replace('I.jpg', 'W.webp'),
         attributes,
+        freeShipping: shipping.free_shipping,
         availableQuantity,
       },
       reviews: JSON.parse(localStorage.getItem('reviews'))
@@ -110,6 +113,7 @@ export default class ProductsDetails extends Component {
         attributes,
         id,
         availableQuantity,
+        freeShipping,
       },
       quantity,
       reviews,
@@ -165,11 +169,15 @@ export default class ProductsDetails extends Component {
               {' - '}
               {price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
             </h2>
+            {freeShipping ? <FreeShippingTag /> : null}
           </div>
 
-          <div>
+          <div className={ styles.ImgAndAttr }>
             <img src={ thumbnail } alt={ title } />
-            <div>
+            <div
+              className={ styles.AttributesList }
+              style={ numberOfColumns }
+            >
               <ul>{attrList}</ul>
             </div>
           </div>

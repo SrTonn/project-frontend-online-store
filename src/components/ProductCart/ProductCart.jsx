@@ -17,11 +17,11 @@ export default class ProductCart extends Component {
       title,
       imageUrl,
       price,
-      quantity,
+      moreOneQuantity,
       availableQuantity,
       updateCartItem,
     } = this.props;
-    const isDisabledAddOne = quantity >= availableQuantity;
+    const isDisabledAddOne = moreOneQuantity >= availableQuantity;
 
     return (
       <div className={ styles.CartItemContainer }>
@@ -55,7 +55,11 @@ export default class ProductCart extends Component {
           onClick={ () => updateCartItem('less', id) }
           dataTestId="product-decrease-quantity"
         />
-        <span data-testid="shopping-cart-product-quantity">{quantity}</span>
+        <span
+          data-testid="shopping-cart-product-quantity"
+        >
+          {moreOneQuantity}
+        </span>
         <ButtonPlusMinus
           operator="add"
           onClick={ () => updateCartItem('add', id) }
@@ -76,7 +80,7 @@ ProductCart.propTypes = {
   title: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
+  moreOneQuantity: PropTypes.number.isRequired,
   availableQuantity: PropTypes.number.isRequired,
   updateCartItem: PropTypes.func.isRequired,
 };
