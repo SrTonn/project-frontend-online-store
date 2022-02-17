@@ -33,7 +33,6 @@ export default class Cart extends Component {
               ))
             )}
         </section>
-
         <h2>
           Valor Total da Compra:
           {' '}
