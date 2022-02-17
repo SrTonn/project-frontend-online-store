@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import styles from './styles.module.css';
-import { FreeShippingTag } from '../FreeShippingTag/FreeShippingTag';
 
 export default class Card extends Component {
   handleAddToCartClick = () => {
@@ -14,6 +13,7 @@ export default class Card extends Component {
       cardPrice,
       cartProductList,
       updateCartItem,
+      availableQuantity,
     } = this.props;
     const productInfos = {
       id,
@@ -22,6 +22,8 @@ export default class Card extends Component {
       price: cardPrice,
       totalPrice: cardPrice,
       quantity: 1,
+      availableQuantity,
+
     };
     const hasIdInCart = cartProductList.some((product) => product.id === id);
 
@@ -34,7 +36,13 @@ export default class Card extends Component {
   };
 
   render() {
-    const { cardName, cardPrice, cardImage, dataTestId, id, freeShipping } = this.props;
+    const {
+      cardName,
+      cardPrice,
+      cardImage,
+      dataTestId,
+      id,
+    } = this.props;
 
     return (
       <div data-testid={ dataTestId } className={ styles.CardContainer }>
@@ -57,25 +65,16 @@ export default class Card extends Component {
           </Link>
         </div>
         <img src={ cardImage } alt={ cardName } className={ styles.CardImg } />
-        {freeShipping ? (
-          <FreeShippingTag className={ styles.FreeShippingTag } />
-        ) : null}
         <button
           className={ styles.Button }
           type="submit"
           data-testid="product-add-to-cart"
           onClick={ this.handleAddToCartClick }
         >
-          <span role="img" aria-label="add-cart">
-            {' '}
-            Adicionar ao Carrinho 🛒
-          </span>
+          <span role="img" aria-label="add-cart"> Adicionar ao Carrinho 🛒</span>
         </button>
         <p className={ styles.Price }>
-          {cardPrice.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })}
+          {cardPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </p>
       </div>
     );
@@ -92,10 +91,10 @@ Card.propTypes = {
   id: PropTypes.string.isRequired,
   cardName: PropTypes.string.isRequired,
   cardPrice: PropTypes.number.isRequired,
+  availableQuantity: PropTypes.number.isRequired,
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
   updateState: PropTypes.func,
   updateCartItem: PropTypes.func,
   cartProductList: PropTypes.arrayOf(PropTypes.object),
-  freeShipping: PropTypes.bool.isRequired,
 };

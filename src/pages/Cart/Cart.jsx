@@ -5,13 +5,21 @@ import styles from './styles.module.css';
 import { CartButton } from '../../components/CartButton/CartButton';
 
 export default class Cart extends Component {
+  handleGoToCheckout = () => {
+    const { history: { push } } = this.props;
+    push('/checkout');
+  }
+
   render() {
     const { cartProductList, history: { goBack } } = this.props;
 
     return (
       <div className={ styles.CartContainer }>
         <button type="button" onClick={ goBack }>go back</button>
-        <CartButton className={ styles.CartButton } />
+        <CartButton
+          className={ styles.CartButton }
+          cartList={ cartProductList.length }
+        />
         <h2>Carrinho de Compras</h2>
 
         <section className={ styles.CartItemsContainer }>
@@ -25,6 +33,7 @@ export default class Cart extends Component {
                   title={ product.title }
                   quantity={ product.quantity }
                   price={ product.totalPrice }
+                  availableQuantity={ product.availableQuantity }
                   { ...this.props }
                 />
               ))
@@ -37,7 +46,13 @@ export default class Cart extends Component {
           {cartProductList.reduce((acc, item) => acc + item.totalPrice, 0)
             .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </h2>
-        <button type="button">Finalizar Compra</button>
+        <button
+          type="button"
+          data-testid="checkout-products"
+          onClick={ this.handleGoToCheckout }
+        >
+          Finalizar Compra
+        </button>
       </div>
     );
   }
@@ -47,5 +62,6 @@ Cart.propTypes = {
   cartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
+    push: PropTypes.func,
   }).isRequired,
 };

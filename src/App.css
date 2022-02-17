@@ -62,3 +62,11 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+}

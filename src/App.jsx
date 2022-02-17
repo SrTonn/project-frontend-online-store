@@ -4,12 +4,29 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import ProductsDetails from './pages/ProductsDetails/ProductsDetails';
+import Checkout from './pages/Checkout/Checkout';
 
 export default class App extends React.Component {
   state = {
     inputSearch: '',
     productList: [],
     cartProductList: [],
+    quantity: 0,
+  }
+
+  componentDidMount() {
+    this.checkLocalStorage();
+  }
+
+  checkLocalStorage = () => {
+    if (!localStorage.getItem('CartProductList')) {
+      localStorage.setItem('CartItensQuantity', JSON.stringify(0));
+    } else {
+      this.setState({
+        quantity: JSON.parse(localStorage.getItem('CartItensQuantity')),
+        cartProductList: JSON.parse(localStorage.getItem('CartProductList')),
+      });
+    }
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -19,7 +36,11 @@ export default class App extends React.Component {
   updateState = (key, value) => {
     this.setState(() => ({
       [key]: value,
-    }));
+    }), () => {
+      if (key === 'cartProductList') {
+        this.getCartQuantity();
+      }
+    });
   }
 
   updateCartItem = (name, id, quantity = 0) => {
@@ -38,7 +59,22 @@ export default class App extends React.Component {
       if (name === 'add') productList[i].quantity += +quantity || 1;
       productList[i].totalPrice = productList[i].price * productList[i].quantity;
       return { cartProductList: productList };
+    }, () => {
+      this.getCartQuantity();
     });
+  }
+
+  getCartQuantity = () => {
+    const {
+      cartProductList,
+    } = this.state;
+    const cartQuantity = cartProductList.map((product) => product.quantity)
+      .reduce((a, b) => a + b, 0);
+    this.setState({
+      quantity: cartQuantity,
+    });
+    localStorage.setItem('CartItensQuantity', JSON.stringify(cartQuantity));
+    localStorage.setItem('CartProductList', JSON.stringify(cartProductList));
   }
 
   render() {
@@ -66,6 +102,10 @@ export default class App extends React.Component {
                 updateCartItem={ this.updateCartItem }
               />
             ) }
+          />
+          <Route
+            path="/checkout"
+            component={ Checkout }
           />
           <Route
             path="/productDetails/:productId"

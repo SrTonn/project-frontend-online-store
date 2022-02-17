@@ -63,7 +63,10 @@ export default class Home extends Component {
             </button>
           </div>
 
-          <CartButton className={ styles.CartButton } />
+          <CartButton
+            className={ styles.CartButton }
+            { ...this.props }
+          />
 
         </div>
         {!hasSearched && (
@@ -81,22 +84,27 @@ export default class Home extends Component {
             onInputClick={ this.handleCategoryClick }
           />
           <main className={ styles.ContainerCards }>
-            {productList && productList.length > 0
+            {productList?.length > 0
               && (
-                productList
-                  .map(({ id, price, title, thumbnail, shipping }) => (
-                    <Card
-                      key={ id }
-                      dataTestId="product"
-                      cardName={ title }
-                      cardPrice={ price }
-                      cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
-                      id={ id }
-                      freeShipping={ shipping.free_shipping }
-                      updateState={ updateState }
-                      { ...this.props }
-                    />
-                  )))}
+                productList.map(({
+                  id,
+                  price,
+                  title,
+                  thumbnail,
+                  available_quantity: availableQuantity,
+                }) => (
+                  <Card
+                    key={ id }
+                    dataTestId="product"
+                    cardName={ title }
+                    cardPrice={ price }
+                    cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
+                    id={ id }
+                    updateState={ updateState }
+                    availableQuantity={ availableQuantity }
+                    { ...this.props }
+                  />
+                )))}
             {hasSearched && productList
             && productList.length === 0 ? <p>Nenhum produto foi encontrado</p> : null }
           </main>

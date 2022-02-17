@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styles from './styles.module.css';
 
 export default class Input extends Component {
   render() {
@@ -11,27 +12,51 @@ export default class Input extends Component {
       value,
       onChange,
       dataTestId,
+      inputLabel,
     } = this.props;
 
-    return (
-      <div>
-        <input
-          name={ name }
-          data-testid={ dataTestId }
-          className={ className }
-          placeholder={ placeholder }
-          type={ type }
-          value={ value }
-          onChange={ onChange }
-        />
-      </div>
-    );
+    let inputEl;
+
+    if (inputLabel.trim()) {
+      inputEl = (
+        <label htmlFor={ dataTestId } className={ styles.InputLabel }>
+          { inputLabel }
+          <input
+            name={ name }
+            id={ dataTestId }
+            data-testid={ dataTestId }
+            className={ styles.InputText }
+            placeholder={ placeholder }
+            type={ type }
+            value={ value }
+            onChange={ onChange }
+          />
+        </label>
+      );
+    } else {
+      inputEl = (
+        <div>
+          <input
+            name={ name }
+            data-testid={ dataTestId }
+            className={ className }
+            placeholder={ placeholder }
+            type={ type }
+            value={ value }
+            onChange={ onChange }
+          />
+        </div>
+      );
+    }
+
+    return inputEl;
   }
 }
 Input.defaultProps = {
   type: 'text',
   placeholder: '',
   className: '',
+  inputLabel: '',
 };
 
 Input.propTypes = {
@@ -42,4 +67,5 @@ Input.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   className: PropTypes.string,
+  inputLabel: PropTypes.string,
 };

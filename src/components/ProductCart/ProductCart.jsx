@@ -1,10 +1,28 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import ButtonPlusMinus from '../ButtonPlusMinus/ButtonPlusMinus';
 import styles from './styles.module.css';
 
 export default class ProductCart extends Component {
+  getLocalStorageCart = () => {
+    const { id } = this.props;
+    const LsCartProductList = JSON.parse(localStorage.getItem('CartProductList'));
+    const itemInCart = LsCartProductList.find((item) => item.id === id);
+    return itemInCart.quantity;
+  };
+
   render() {
-    const { id, title, imageUrl, price, quantity, updateCartItem } = this.props;
+    const {
+      id,
+      title,
+      imageUrl,
+      price,
+      quantity,
+      availableQuantity,
+      updateCartItem,
+    } = this.props;
+    const isDisabledAddOne = quantity >= availableQuantity;
+
     return (
       <div className={ styles.CartItemContainer }>
         <button
@@ -32,27 +50,19 @@ export default class ProductCart extends Component {
 
           </abbr>
         </div>
-        <span>-</span>
-        <button
+        <ButtonPlusMinus
+          operator="minus"
           onClick={ () => updateCartItem('less', id) }
-          type="button"
-          id={ id }
-          data-testid="product-decrease-quantity"
-          name="less"
-        >
-          Remover
-        </button>
+          dataTestId="product-decrease-quantity"
+        />
         <span data-testid="shopping-cart-product-quantity">{quantity}</span>
-        <button
-          type="button"
-          id={ id }
-          name="add"
-          data-testid="product-increase-quantity"
+        <ButtonPlusMinus
+          operator="add"
           onClick={ () => updateCartItem('add', id) }
-        >
-          Adicionar
-        </button>
-        <span>+</span>
+          className={ `${isDisabledAddOne ? 'disabled' : null}` }
+          isDisabled={ isDisabledAddOne }
+          dataTestId="product-increase-quantity"
+        />
         <span className={ styles.Price }>
           {price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </span>
@@ -67,5 +77,6 @@ ProductCart.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   quantity: PropTypes.number.isRequired,
+  availableQuantity: PropTypes.number.isRequired,
   updateCartItem: PropTypes.func.isRequired,
 };
