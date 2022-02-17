@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ButtonPlusMinus from '../ButtonPlusMinus/ButtonPlusMinus';
 import styles from './styles.module.css';
 
 export default class ProductCart extends Component {
@@ -12,16 +11,7 @@ export default class ProductCart extends Component {
   };
 
   render() {
-    const {
-      id,
-      title,
-      imageUrl,
-      price,
-      quantity,
-      availableQuantity,
-      updateCartItem,
-    } = this.props;
-    const isDisabledAddOne = quantity >= availableQuantity;
+    const { id, title, imageUrl, price, updateCartItem } = this.props;
     return (
       <div className={ styles.CartItemContainer }>
         <button
@@ -49,19 +39,32 @@ export default class ProductCart extends Component {
 
           </abbr>
         </div>
-        <ButtonPlusMinus
-          operator="minus"
+        <span>-</span>
+        <button
           onClick={ () => updateCartItem('less', id) }
-          dataTestId="product-decrease-quantity"
-        />
-        <span data-testid="shopping-cart-product-quantity">{quantity}</span>
-        <ButtonPlusMinus
-          operator="add"
+          type="button"
+          id={ id }
+          data-testid="product-decrease-quantity"
+          name="less"
+        >
+          Remover
+        </button>
+        <span
+          data-testid="shopping-cart-product-quantity"
+        >
+          {this.getLocalStorageCart()}
+
+        </span>
+        <button
+          type="button"
+          id={ id }
+          name="add"
+          data-testid="product-increase-quantity"
           onClick={ () => updateCartItem('add', id) }
-          className={ `${isDisabledAddOne ? 'disabled' : null}` }
-          isDisabled={ isDisabledAddOne }
-          dataTestId="product-increase-quantity"
-        />
+        >
+          Adicionar
+        </button>
+        <span>+</span>
         <span className={ styles.Price }>
           {price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </span>
@@ -75,7 +78,5 @@ ProductCart.propTypes = {
   title: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
-  availableQuantity: PropTypes.number.isRequired,
   updateCartItem: PropTypes.func.isRequired,
 };

@@ -79,16 +79,9 @@ export default class Home extends Component {
             onInputClick={ this.handleCategoryClick }
           />
           <main className={ styles.ContainerCards }>
-            {productList?.length > 0
+            {productList && productList.length > 0
               && (
-                productList.map(({
-                  id,
-                  price,
-                  title,
-                  thumbnail,
-                  shipping,
-                  available_quantity: availableQuantity,
-                }) => (
+                productList.map(({ id, price, title, thumbnail }) => (
                   <Card
                     key={ id }
                     dataTestId="product"
@@ -96,9 +89,7 @@ export default class Home extends Component {
                     cardPrice={ price }
                     cardImage={ thumbnail.replace('I.jpg', 'W.webp') }
                     id={ id }
-                    freeShipping={ shipping.free_shipping }
                     updateState={ updateState }
-                    availableQuantity={ availableQuantity }
                     { ...this.props }
                   />
                 )))}
