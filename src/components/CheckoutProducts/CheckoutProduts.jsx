@@ -18,7 +18,7 @@ class CheckoutProduts extends Component {
     const { products } = this.props;
     const total = this.calculateTotal(products);
     let produtsList;
-    if (products && products.length > 0) {
+    if (products?.length) {
       produtsList = products.map((prod) => (
         <li key={ prod.id } className={ styles.ProductItem }>
           <img
