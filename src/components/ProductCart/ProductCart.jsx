@@ -55,7 +55,12 @@ export default class ProductCart extends Component {
           onClick={ () => updateCartItem('less', id) }
           dataTestId="product-decrease-quantity"
         />
-        <span data-testid="shopping-cart-product-quantity">{quantity}</span>
+        <span
+          data-testid="shopping-cart-product-quantity"
+        >
+          {this.getLocalStorageCart()}
+
+        </span>
         <ButtonPlusMinus
           operator="add"
           onClick={ () => updateCartItem('add', id) }
