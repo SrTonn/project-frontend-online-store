@@ -46,7 +46,8 @@ export default class Card extends Component {
       <div data-testid={ dataTestId } className={ styles.CardContainer }>
         <div className={ styles.CardTitleContainer }>
           <Link
-            to={ { pathname: `/productDetails/${id}` } }
+            to={ { pathname: `/productDetails/${id}`,
+            } }
             data-testid="product-detail-link"
           >
             <span

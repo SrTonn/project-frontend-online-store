@@ -58,7 +58,10 @@ export default class Home extends Component {
             </button>
           </div>
 
-          <CartButton className={ styles.CartButton } />
+          <CartButton
+            className={ styles.CartButton }
+            { ...this.props }
+          />
 
         </div>
         {!hasSearched && (

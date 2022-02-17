@@ -87,6 +87,9 @@ export default class ProductsDetails extends Component {
     const {
       product: { title, price, thumbnail, attributes, id }, quantity, reviews,
     } = this.state;
+    const {
+      cartProductList, quantity: quantityDetails,
+    } = this.props;
 
     const attrList = attributes?.map((item) => (
       <li key={ item.id }>
@@ -101,7 +104,11 @@ export default class ProductsDetails extends Component {
         <Link
           to="/cart"
         >
-          <CartButton className={ styles.CartButton } />
+          <CartButton
+            className={ styles.CartButton }
+            cartList={ cartProductList.length }
+            ProductsDetails={ quantityDetails }
+          />
         </Link>
 
         <div>
@@ -154,4 +161,5 @@ ProductsDetails.propTypes = {
   }).isRequired,
   updateCartItem: PropTypes.func.isRequired,
   updateState: PropTypes.func.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
