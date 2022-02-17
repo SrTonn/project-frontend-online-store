@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 export class CartButton extends Component {
   render() {
-    const { className } = this.props;
+    const { className, quantity, ProductsDetails } = this.props;
+    // console.log(ProductsDetails);
     return (
       <div className={ className }>
         <Link
@@ -17,6 +18,11 @@ export class CartButton extends Component {
           >
             🛒
           </span>
+          <span
+            data-testid="shopping-cart-size"
+          >
+            { ProductsDetails || quantity }
+          </span>
         </Link>
       </div>
     );
@@ -27,4 +33,6 @@ export default CartButton;
 
 CartButton.propTypes = {
   className: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  ProductsDetails: PropTypes.number.isRequired,
 };

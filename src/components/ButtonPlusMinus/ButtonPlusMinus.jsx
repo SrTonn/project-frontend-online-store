@@ -3,30 +3,20 @@ import PropTypes from 'prop-types';
 
 export default class ButtonPlusMinus extends React.Component {
   render() {
-    const { onClick, operator, className, isDisabled, dataTestId } = this.props;
+    const { handleClickQuantity, operator } = this.props;
     return (
       <button
-        className={ className }
         type="button"
-        onClick={ () => onClick(operator) }
-        disabled={ isDisabled }
-        data-testid={ dataTestId }
+        onClick={ () => handleClickQuantity(operator) }
       >
         {operator === 'add' ? '+' : '-'}
+
       </button>
     );
   }
 }
 
-ButtonPlusMinus.defaultProps = {
-  className: '',
-  isDisabled: false,
-};
-
 ButtonPlusMinus.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  operator: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  isDisabled: PropTypes.bool,
-  dataTestId: PropTypes.string.isRequired,
+  handleClickQuantity: PropTypes.func.isRequired,
+  operator: PropTypes.func.isRequired,
 };
