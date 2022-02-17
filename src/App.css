@@ -1,3 +1,26 @@
+/* ===== Scrollbar ===== */
+
+/* Firefox */
+* {
+  scrollbar-color: #055299 white;
+  scrollbar-width: auto;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: white;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #055299;
+  border: 3px solid white;
+  border-radius: 15px;
+}
+
 .App {
   text-align: center;
 }
@@ -12,7 +35,6 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-
 }
 
 .App-header {
