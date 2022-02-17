@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import { FreeShippingTag } from '../FreeShippingTag/FreeShippingTag';
 
 export default class Card extends Component {
-  handleAddToCartClick = async () => {
+  handleAddToCartClick = () => {
     const {
       updateState,
       id,
@@ -14,7 +14,6 @@ export default class Card extends Component {
       cardPrice,
       cartProductList,
       updateCartItem,
-      availableQuantity,
     } = this.props;
     const productInfos = {
       id,
@@ -23,7 +22,6 @@ export default class Card extends Component {
       price: cardPrice,
       totalPrice: cardPrice,
       quantity: 1,
-      availableQuantity,
     };
     const hasIdInCart = cartProductList.some((product) => product.id === id);
 
@@ -94,7 +92,6 @@ Card.propTypes = {
   id: PropTypes.string.isRequired,
   cardName: PropTypes.string.isRequired,
   cardPrice: PropTypes.number.isRequired,
-  availableQuantity: PropTypes.number.isRequired,
   cardImage: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
   updateState: PropTypes.func,
