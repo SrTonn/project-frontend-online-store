@@ -38,16 +38,12 @@ export default class Cart extends Component {
           {cartProductList.reduce((acc, item) => acc + item.totalPrice, 0)
             .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </h2>
-        <button type="button">
-          <Link
-            to={ {
-              pathname: 'checkout',
-              state: cartProductList,
-            } }
-            data-testid="checkout-products"
-          >
-            Finalizar Compra
-          </Link>
+<button
+          type="button"
+          data-testid="checkout-products"
+          onClick={ this.handleClick }
+        >
+          Finalizar Compra
         </button>
       </div>
     );
